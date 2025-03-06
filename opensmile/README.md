@@ -13,15 +13,15 @@ Check your Python version:
 ```sh
 python --version
 ```
-Install requirements for Python 3.9.18
+Install requirements for Python 3.9.18:
 ```sh
 pip install -r python39_requirements.txt
 ```
-Install requirements for Python 3.13.1
+Install requirements for Python 3.13.1:
 ```sh
 pip install -r python313_requirements.txt
 ```
-If you do not have the supported Python versions installed, you may need to adjust the requirements.txt for compatibility with your Python version. Alternatively, you can run the scripts with Docker.
+If you do not have the supported Python versions installed, you may need to adjust the requirements.txt for compatibility with your Python version. Alternatively, you can run the scripts using Docker.
 
 ### With Docker
 
@@ -33,30 +33,33 @@ Run the necessary docker build and run commands provided in the build_docker.sh 
 ./build_docker.sh
 ./run_docker.sh
 ```
-
 These commands have been written to be run on Linux.
 
 ## Extracting Acoustic Features
+
 After installation, navigate to `extract_features.py`. In `main()`, you may adjust the arguments passed into `extract()` to include:
 - A .WAV file for which you wish to generate features
 - feat_level: an optional kwarg that determines which FeatureLevel is used
 - feat_set: an optional kwarg that determines which FeatureSet is used
-If no kwargs are defined, the script will default to the LowLevelDescriptors FeatureLevel and ComParE_2016 FeatureSet.
-Once adjusted, run:
 
+If no kwargs are defined, the script will default to the LowLevelDescriptors FeatureLevel and ComParE_2016 FeatureSet.
+
+Once adjusted, run:
 ```sh
 python extract_features.py
 ```
 You will find your output in sample_out/
 
-### FeatureLevel options
+### FeatureLevel Options
+
 - LowLevelDescriptors (lld)
 - Functionals (func)
 - LowLevelDescriptors_Deltas (lld_de)
 
 See [Opensmile's FeatureLevel documentation](https://audeering.github.io/opensmile-python/api/opensmile.FeatureLevel.html) for further details.
 
-### FeatureSet options
+### FeatureSet Options
+
 - ComParE_2016
 - eGeMAPSv01a
 - eGeMAPSv01b
@@ -66,9 +69,9 @@ See [Opensmile's FeatureLevel documentation](https://audeering.github.io/opensmi
 
 See [Opensmile's FeatureSet documentation](https://audeering.github.io/opensmile-python/api/opensmile.FeatureSet.html#opensmile.FeatureSet) for further details.
 
-## Usage example
+## Usage Example
 
-The extract_features.py script generates:
+The `extract_features.py` script generates:
 - LLDs using ComParE_2016 as the on the provided sample WAV file.
 - LLDs using eGeMAPSv02 as the on the provided sample WAV file.
 - Functionals using ComParE_2016 as the on the provided sample WAV file.
