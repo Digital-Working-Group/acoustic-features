@@ -23,7 +23,9 @@ def main():
     main entrypoint
     """
     extract('sample_wav/first_ten_Sample_HV_Clip.wav')
+    extract('sample_wav/first_ten_Sample_HV_Clip.wav', feat_set='eGeMAPSv02')
     extract('sample_wav/first_ten_Sample_HV_Clip.wav', feat_level='func')
+    extract('sample_wav/first_ten_Sample_HV_Clip.wav', feat_level='func', feat_set='GeMAPSv01b')
 
 if __name__ == '__main__':
     main()

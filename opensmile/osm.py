@@ -29,11 +29,11 @@ def extract_osm_features(audio_fn, csv_out, feat_level='lld', feat_set='ComPareE
     elif feat_set == 'gemapsv01b':
         feature_set = opensmile.FeatureSet.GeMAPSv01b
     elif feat_set == 'egemapsv01a':
-        feature_set == opensmile.FeatureSet.eGeMAPSv01a
+        feature_set = opensmile.FeatureSet.eGeMAPSv01a
     elif feat_set == 'egemapsv01b':
-        feature_set == opensmile.FeatureSet.eGeMAPSv01b
+        feature_set = opensmile.FeatureSet.eGeMAPSv01b
     elif feat_set == 'egemapsv02':
-        feature_set == opensmile.FeatureSet.eGeMAPSv02
+        feature_set = opensmile.FeatureSet.eGeMAPSv02
 
     smile = opensmile.Smile(
         feature_set=feature_set,
