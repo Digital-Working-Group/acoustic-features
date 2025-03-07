@@ -52,21 +52,24 @@ You will find your output in sample_out/
 
 ### FeatureLevel Options
 
-- LowLevelDescriptors (lld)
-- Functionals (func)
-- LowLevelDescriptors_Deltas (lld_de)
+| FeatureLevel Name          | Argument Mapping |
+|----------------------------|------------------|
+| LowLevelDescriptors        | lld              |
+| Functionals                | func             |
+| LowLevelDescriptors_Deltas | lld_de           |
 
+Note that the argument mappings are not case sensitive.
 See [Opensmile's FeatureLevel documentation](https://audeering.github.io/opensmile-python/api/opensmile.FeatureLevel.html) for further details.
 
 ### FeatureSet Options
 
-- ComParE_2016
-- eGeMAPSv01a
-- eGeMAPSv01b
-- eGeMAPSv02
-- GeMAPSv01a
-- GeMAPSv01b
+| FeatureSet Name | Argument Mapping |
+|-----------------|------------------|
+| ComParE_2016    | compare_2016     |
+| eGeMAPSv02      | egemapsv02       |
+| GeMAPSv01b      | gemapsv01b       |
 
+Note that the argument mappings are not case sensitive, but will affect the output path.
 See [Opensmile's FeatureSet documentation](https://audeering.github.io/opensmile-python/api/opensmile.FeatureSet.html#opensmile.FeatureSet) for further details.
 
 ## Usage Example
@@ -74,8 +77,11 @@ See [Opensmile's FeatureSet documentation](https://audeering.github.io/opensmile
 The `extract_features.py` script generates:
 - LLDs using ComParE_2016 as the on the provided sample WAV file.
 - LLDs using eGeMAPSv02 as the on the provided sample WAV file.
+- LLDs using GeMAPSv01b as the on the provided sample WAV file.
 - Functionals using ComParE_2016 as the on the provided sample WAV file.
+- Functionals using eGeMAPSv02 as the on the provided sample WAV file.
 - Functionals using GeMAPSv01b as the on the provided sample WAV file.
+- LLD_DE's using ComParE_2016 as the on the provided sample WAV file.
 
 ### Sample Input and Output Files
 
@@ -84,27 +90,22 @@ The `extract_features.py` script generates:
         * first_ten_Sample_HV_Clip.wav contains a 10-second WAV clip.
 * Sample Output:
     * sample_out/
-        * first_ten_Sample_HV_Clip_lld_ComParE_2016.csv
-        * first_ten_Sample_HV_Clip_lld_eGeMAPSv02.csv
-        * first_ten_Sample_HV_Clip_func_ComParE_2016.csv
-        * first_ten_Sample_HV_Clip_func_GeMAPSv01b.csv
+        * ComParE_2016/
+            * first_ten_Sample_HV_Clip_lld_ComParE_2016.csv
+            * first_ten_Sample_HV_Clip_func_ComParE_2016.csv
+            * first_ten_Sample_HV_Clip_lld_de_ComParE_2016.csv
+        * eGeMAPSv02
+            * first_ten_Sample_HV_Clip_lld_eGeMAPSv02.csv
+            * first_ten_Sample_HV_Clip_func_eGeMAPSv02.csv
+        * GeMAPSv01b
+            * first_ten_Sample_HV_Clip_lld_GeMAPSv01b.csv
+            * first_ten_Sample_HV_Clip_func_GeMAPSv01b.csv
 
 ## Acknowledgement
 - [openSMILE](https://github.com/audeering/opensmile): Open-source Speech and Music Interpretation by Large-space Extraction (License audEERING GmbH)
 
 ## Citations
-If you use this in your research, please cite this repo:
-```bibtex
-@misc{fhsbap2024vfetopensmile,
-  title={Voice-Feature-Extraction-Toolkit/opensmile},
-  author={Karjadi, Cody},
-  journal={GitHub repository},
-  year={2024},
-  publisher={GitHub},
-  howpublished = {\url{https://github.com/FHS-BAP/Voice-Feature-Extraction-Toolkit/tree/main/opensmile}}
-}
-```
-and the openSMILE paper:
+If you use this in your research, please cite the openSMILE paper:
 ```bibtex
 @article{eyben2010opensmile,
   title={openSMILE - The Munich Versatile and Fast Open-Source Audio Feature Extractor},
@@ -115,5 +116,16 @@ and the openSMILE paper:
   isbn={978-1-60558-933-6},
   pages={1459-1462},
   year={2010}
+}
+```
+and this repo:
+```bibtex
+@misc{fhsbap2024vfetopensmile,
+  title={Voice-Feature-Extraction-Toolkit/opensmile},
+  author={Karjadi, Cody},
+  journal={GitHub repository},
+  year={2024},
+  publisher={GitHub},
+  howpublished = {\url{https://github.com/Digital-Working-Group/acoustic-features}}
 }
 ```
