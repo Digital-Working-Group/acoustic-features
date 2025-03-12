@@ -71,7 +71,7 @@ See [openSMILE's FeatureLevel documentation](https://audeering.github.io/opensmi
 | eGeMAPSv02      | egemapsv02       |
 | GeMAPSv01b      | gemapsv01b       |
 
-The argument mappings are not case sensitive, but will affect the output path.
+The argument mappings are not case sensitive.
 See [openSMILE's FeatureSet documentation](https://audeering.github.io/opensmile-python/api/opensmile.FeatureSet.html#opensmile.FeatureSet) for further details.
 
 ## Usage Example
@@ -92,27 +92,27 @@ The `extract_features.py` script generates:
         * first_ten_Sample_HV_Clip.wav contains a 10-second WAV clip.
 * Sample Output:
     * sample_out/
-        * ComParE_2016/
-            * first_ten_Sample_HV_Clip_lld_ComParE_2016.csv
-            * first_ten_Sample_HV_Clip_func_ComParE_2016.csv
-            * first_ten_Sample_HV_Clip_lld_de_ComParE_2016.csv
-        * eGeMAPSv02
-            * first_ten_Sample_HV_Clip_lld_eGeMAPSv02.csv
-            * first_ten_Sample_HV_Clip_func_eGeMAPSv02.csv
-        * GeMAPSv01b
-            * first_ten_Sample_HV_Clip_lld_GeMAPSv01b.csv
-            * first_ten_Sample_HV_Clip_func_GeMAPSv01b.csv
+        * compare_2016/
+            * first_ten_Sample_HV_Clip_lld_compare_2016.csv
+            * first_ten_Sample_HV_Clip_func_compare_2016.csv
+            * first_ten_Sample_HV_Clip_lld_de_Compare_2016.csv
+        * egemapsv02/
+            * first_ten_Sample_HV_Clip_lld_egemapsv02.csv
+            * first_ten_Sample_HV_Clip_func_egemapsv02.csv
+        * gemapsv02b/
+            * first_ten_Sample_HV_Clip_lld_gemapsv01b.csv
+            * first_ten_Sample_HV_Clip_func_gemapsv01b.csv
 
 ### Running this code
 If running this code in an interactive python environment, you may use the following commands:
 ```python
  from osm import extract_osm_features
- extract(YOUR_WAV_FILEPATH, OPTIONAL_KWARGS)
+ extract_osm_features(YOUR_WAV_FILEPATH, OPTIONAL_KWARGS)
 ```
 For instance, you could run:
 ```python
  from osm import extract_osm_features
- extract('sample_wav/first_ten_Sample_HV_Clip.wav', feat_level='func', feat_set='eGeMAPSv02', sampling_rate=16000)
+ extract_osm_features('sample_wav/first_ten_Sample_HV_Clip.wav', feat_level='func', feat_set='eGeMAPSv02', sampling_rate=16000)
 ```
 This would output the features extracted using functionals as the FeatureLevel, eGeMAPSv02 as the FeatureSet and would resample the audio file to 16KHz.
 
