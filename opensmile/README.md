@@ -1,6 +1,6 @@
 # Acoustic Features: openSMILE
 
-This repository contains scripts that show examples of how to use the [openSMILE Python library](https://audeering.github.io/opensmile-python/) to generate various feature levels from several feature sets. The scripts can be run with and without Docker.
+This repository contains scripts that show examples of how to use the [openSMILE Python library](https://audeering.github.io/opensmile-python/) to generate acoustic features via various feature levels from several feature sets. The scripts can be run with and without Docker.
 
 ## Installation
 
