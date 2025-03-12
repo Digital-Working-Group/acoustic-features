@@ -21,7 +21,11 @@ Install requirements for Python 3.13.1:
 ```sh
 pip install -r python313_requirements.txt
 ```
-If you do not have the supported Python versions installed, you may need to adjust the requirements.txt for compatibility with your Python version. Alternatively, you can run the scripts using Docker.
+If you do not have the supported Python versions installed, you may run the following installation:
+```sh
+pip install opensmile
+```
+Alternatively, you can run the scripts using Docker.
 
 ### With Docker
 
@@ -100,6 +104,24 @@ The `extract_features.py` script generates:
         * GeMAPSv01b
             * first_ten_Sample_HV_Clip_lld_GeMAPSv01b.csv
             * first_ten_Sample_HV_Clip_func_GeMAPSv01b.csv
+
+### Running this code
+If running this code in an interactive python environment, you may use the following commands:
+```sh
+ from osm import extract_osm_features
+ extract(YOUR_WAV_FILEPATH, OPTIONAL_KWARGS)
+```
+For instance, you could run:
+```sh
+ from osm import extract_osm_features
+ extract('sample_wav/first_ten_Sample_HV_Clip.wav', feat_level='func', feat_set='eGeMAPSv02', sampling_rate=16000)
+```
+This would output the features extracted using functionals as the FeatureLevel, eGeMAPSv02 as the FeatureSet and resampling to a rate of 16KHz.
+
+You can see our examples described above by looking at `extract_features.main()`.
+
+### Default Values
+If no FeatureLevel (feat_level), FeatureSet (feat_set), channels (channels), or sampling rate (sampling_rate) are provided as key word arguments when calling `extract_features.extract()`, they will default to lld, ComParE_2016, 0, and the current audio sampling rate respectively. 
 
 ## Acknowledgement
 - [openSMILE](https://github.com/audeering/opensmile): Open-source Speech and Music Interpretation by Large-space Extraction (License audEERING GmbH)
