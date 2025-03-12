@@ -76,7 +76,7 @@ See [openSMILE's FeatureSet documentation](https://audeering.github.io/opensmile
 
 ## Usage Example
 
-The `extract_features.py` script generates the below and repeats it with resampling to 16KHz:
+The `extract_features.py` script generates the below and repeats it with resampling to 16KHz prior to feature generation:
 - LLDs using ComParE_2016 as the on the provided sample WAV file.
 - Functionals using ComParE_2016 as the on the provided sample WAV file.
 - LLD_DE's using ComParE_2016 as the on the provided sample WAV file.
@@ -113,7 +113,8 @@ The `extract_features.py` script generates the below and repeats it with resampl
                 * first_ten_Sample_HV_Clip_lld_gemapsv01b_16KHz.csv
                 * first_ten_Sample_HV_Clip_func_gemapsv01b_16KHz.csv
 
-If running this code in an interactive python environment, you may use the following commands:
+Python usage:
+
 ```python
  from osm import extract_osm_features
  extract_osm_features(YOUR_WAV_FILEPATH, OPTIONAL_KWARGS)
