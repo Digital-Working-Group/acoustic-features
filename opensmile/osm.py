@@ -12,10 +12,11 @@ def extract_osm_features(audio_fp, **kwargs):
     Writes the features to a CSV
     """
     feat_level = kwargs.get('feat_level', 'lld')
-    feat_set = kwargs.get('feat_set', 'ComParE_2016')
+    feat_set = kwargs.get('feat_set', 'compare_2016')
     sampling_rate = kwargs.get('sampling_rate')
     channels = kwargs.get('channels', [0])
     resample = sampling_rate is not None
+    out_root = kwargs.get('out_root', 'sample_out')
     feat_level = feat_level.lower()
     feat_set = feat_set.lower()
 
@@ -31,10 +32,10 @@ def extract_osm_features(audio_fp, **kwargs):
     csv_out = kwargs.get('csv_out')
     if csv_out is None:
         basename = os.path.basename(audio_fp).split('.')[0]
-        csv_out = f'sample_out/{feat_set}/{basename}_{feat_level}_{feat_set}.csv'
+        csv_out = f'{out_root}/{feat_set}/{basename}_{feat_level}_{feat_set}.csv'
         if sampling_rate is not None:
             sr_ext = f'{int(sampling_rate / 1000)}KHz'
-            csv_out = f'sample_out/{feat_set}/{sr_ext}/{basename}_{feat_level}_{feat_set}_{sr_ext}.csv'
+            csv_out = f'{out_root}/{feat_set}/{sr_ext}/{basename}_{feat_level}_{feat_set}_{sr_ext}.csv'
 
     if feat_set ==  'compare_2016':
         feature_set = opensmile.FeatureSet.ComParE_2016

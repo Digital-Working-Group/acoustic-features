@@ -76,14 +76,14 @@ See [openSMILE's FeatureSet documentation](https://audeering.github.io/opensmile
 
 ## Usage Example
 
-The `extract_features.py` script generates:
+The `extract_features.py` script generates the below and repeats it with resampling to 16KHz:
 - LLDs using ComParE_2016 as the on the provided sample WAV file.
-- LLDs using eGeMAPSv02 as the on the provided sample WAV file.
-- LLDs using GeMAPSv01b as the on the provided sample WAV file.
 - Functionals using ComParE_2016 as the on the provided sample WAV file.
-- Functionals using eGeMAPSv02 as the on the provided sample WAV file.
-- Functionals using GeMAPSv01b as the on the provided sample WAV file.
 - LLD_DE's using ComParE_2016 as the on the provided sample WAV file.
+- LLDs using eGeMAPSv02 as the on the provided sample WAV file.
+- Functionals using eGeMAPSv02 as the on the provided sample WAV file.
+- LLDs using GeMAPSv01b as the on the provided sample WAV file.
+- Functionals using GeMAPSv01b as the on the provided sample WAV file.
 
 ### Sample Input and Output Files
 
@@ -96,14 +96,23 @@ The `extract_features.py` script generates:
             * first_ten_Sample_HV_Clip_lld_compare_2016.csv
             * first_ten_Sample_HV_Clip_func_compare_2016.csv
             * first_ten_Sample_HV_Clip_lld_de_Compare_2016.csv
+            * 16KHz/
+                * first_ten_Sample_HV_Clip_lld_compare_2016_16KHz.csv
+                * first_ten_Sample_HV_Clip_func_compare_2016_16KHz.csv
+                * first_ten_Sample_HV_Clip_lld_de_compare_2016_16KHz.csv
         * egemapsv02/
             * first_ten_Sample_HV_Clip_lld_egemapsv02.csv
             * first_ten_Sample_HV_Clip_func_egemapsv02.csv
+            * 16KHz/
+                * first_ten_Sample_HV_Clip_lld_egemapsv02_16KHz.csv
+                * first_ten_Sample_HV_Clip_func_egemapsv02_16KHz.csv
         * gemapsv02b/
             * first_ten_Sample_HV_Clip_lld_gemapsv01b.csv
             * first_ten_Sample_HV_Clip_func_gemapsv01b.csv
+            * 16KHz/
+                * first_ten_Sample_HV_Clip_lld_gemapsv01b_16KHz.csv
+                * first_ten_Sample_HV_Clip_func_gemapsv01b_16KHz.csv
 
-### Running this code
 If running this code in an interactive python environment, you may use the following commands:
 ```python
  from osm import extract_osm_features
@@ -118,8 +127,16 @@ This would output the features extracted using functionals as the FeatureLevel, 
 
 You can see our examples described above by looking at `extract_features.main()`.
 
-### Default Values
-If no FeatureLevel (feat_level), FeatureSet (feat_set), channels (channels), or sampling rate (sampling_rate) are provided as key word arguments when calling `extract_features.extract()`, they will default to 'lld', 'ComParE_2016', [0], and the audio file's original sampling rate respectively. 
+### Keyword Arguments and Default Values (osm.extract_osm_features()):
+
+| Keyword Argument | Description | Default Value| 
+| - | - | - |
+| feat_level | Feature Level to be used. | lld |
+| feat_set | Feature Set to be used. | compare_2016 |
+| sampling_rate | Sampling Rate to resample to before generating features. | None (uses original sampling rate) |
+| resample | Set to True if sampling_rate is not None. | NA |
+| out_root | Root folder that the output files are written to. | sample_out/ |
+| csv_out | CSV filepath that the features are written to. | Combines the out_root, feat_set, sampling_rate (if any), original name of the input file into a filepath. |
 
 ## Acknowledgement
 - [openSMILE](https://github.com/audeering/opensmile): Open-source Speech and Music Interpretation by Large-space Extraction (License audEERING GmbH)
@@ -136,16 +153,5 @@ If you use this in your research, please cite the openSMILE paper:
   isbn={978-1-60558-933-6},
   pages={1459-1462},
   year={2010}
-}
-```
-and this repo:
-```bibtex
-@misc{fhsbap2024vfetopensmile,
-  title={Voice-Feature-Extraction-Toolkit/opensmile},
-  author={Karjadi, Cody},
-  journal={GitHub repository},
-  year={2024},
-  publisher={GitHub},
-  howpublished = {\url{https://github.com/Digital-Working-Group/acoustic-features}}
 }
 ```
