@@ -105,12 +105,12 @@ The `extract_features.py` script generates:
 
 ### Running this code
 If running this code in an interactive python environment, you may use the following commands:
-```sh
+```python
  from osm import extract_osm_features
  extract(YOUR_WAV_FILEPATH, OPTIONAL_KWARGS)
 ```
 For instance, you could run:
-```sh
+```python
  from osm import extract_osm_features
  extract('sample_wav/first_ten_Sample_HV_Clip.wav', feat_level='func', feat_set='eGeMAPSv02', sampling_rate=16000)
 ```
