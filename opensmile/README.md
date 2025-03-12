@@ -2,13 +2,14 @@
 
 > Examples of using the openSMILE Python library with and without [Docker.](https://docs.docker.com/engine/install/)
 
-This repository contains scripts that show examples of how to use the [openSMILE Python library](https://audeering.github.io/opensmile-python/) to generate Low Level Descriptors (LLDs) and Functionals from the ComParE 2016 feature set. The scripts can be run with and without Docker.
+This repository contains scripts that show examples of how to use the [openSMILE Python library](https://audeering.github.io/opensmile-python/) to generate various feature levels from several feature sets. The scripts can be run with and without Docker.
 
 ## Installation
 
 ### Without Docker
 
-The requirements.txt file can be used to install the necessary libraries without utilizing a Docker environment. Python 3.9.18 was used to develop and test these scripts. We currently have support for both Python 3.9.18 and 3.13.1.
+The requirements.txt file can be used to install the necessary libraries without utilizing a Docker environment.
+
 Check your Python version:
 ```sh
 python --version
@@ -25,19 +26,18 @@ If you do not have the supported Python versions installed, you may run the foll
 ```sh
 pip install opensmile
 ```
-Alternatively, you can run the scripts using Docker.
+Alternatively, you can run the scripts in a Docker environment.
 
 ### With Docker
 
 [Docker](https://docs.docker.com/engine/install/) is required for building and running the docker container. Docker version 24.0.6, build ed223bc was used to develop and test these scripts.
 
-Run the necessary docker build and run commands provided in the build_docker.sh and run_docker.sh scripts.
+Run the necessary docker build and run commands provided in the build_docker.sh and run_docker.sh scripts. These .sh scripts were tested on Linux (CentOS 7).
 
 ```sh
 ./build_docker.sh
 ./run_docker.sh
 ```
-These commands have been written to be run on Linux.
 
 ## Extracting Acoustic Features
 
@@ -62,8 +62,8 @@ You will find your output in sample_out/
 | Functionals                | func             |
 | LowLevelDescriptors_Deltas | lld_de           |
 
-Note that the argument mappings are not case sensitive.
-See [Opensmile's FeatureLevel documentation](https://audeering.github.io/opensmile-python/api/opensmile.FeatureLevel.html) for further details.
+The argument mappings are not case sensitive.
+See [openSMILE's FeatureLevel documentation](https://audeering.github.io/opensmile-python/api/opensmile.FeatureLevel.html) for further details.
 
 ### FeatureSet Options
 
@@ -73,8 +73,8 @@ See [Opensmile's FeatureLevel documentation](https://audeering.github.io/opensmi
 | eGeMAPSv02      | egemapsv02       |
 | GeMAPSv01b      | gemapsv01b       |
 
-Note that the argument mappings are not case sensitive, but will affect the output path.
-See [Opensmile's FeatureSet documentation](https://audeering.github.io/opensmile-python/api/opensmile.FeatureSet.html#opensmile.FeatureSet) for further details.
+The argument mappings are not case sensitive, but will affect the output path.
+See [openSMILE's FeatureSet documentation](https://audeering.github.io/opensmile-python/api/opensmile.FeatureSet.html#opensmile.FeatureSet) for further details.
 
 ## Usage Example
 
@@ -116,12 +116,12 @@ For instance, you could run:
  from osm import extract_osm_features
  extract('sample_wav/first_ten_Sample_HV_Clip.wav', feat_level='func', feat_set='eGeMAPSv02', sampling_rate=16000)
 ```
-This would output the features extracted using functionals as the FeatureLevel, eGeMAPSv02 as the FeatureSet and resampling to a rate of 16KHz.
+This would output the features extracted using functionals as the FeatureLevel, eGeMAPSv02 as the FeatureSet and would resample the audio file to 16KHz.
 
 You can see our examples described above by looking at `extract_features.main()`.
 
 ### Default Values
-If no FeatureLevel (feat_level), FeatureSet (feat_set), channels (channels), or sampling rate (sampling_rate) are provided as key word arguments when calling `extract_features.extract()`, they will default to lld, ComParE_2016, 0, and the current audio sampling rate respectively. 
+If no FeatureLevel (feat_level), FeatureSet (feat_set), channels (channels), or sampling rate (sampling_rate) are provided as key word arguments when calling `extract_features.extract()`, they will default to 'lld', 'ComParE_2016', [0], and the audio file's original sampling rate respectively. 
 
 ## Acknowledgement
 - [openSMILE](https://github.com/audeering/opensmile): Open-source Speech and Music Interpretation by Large-space Extraction (License audEERING GmbH)
