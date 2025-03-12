@@ -1,6 +1,4 @@
-# openSMILE Docker Examples
-
-> Examples of using the openSMILE Python library with and without [Docker.](https://docs.docker.com/engine/install/)
+# Acoustic Features: openSMILE
 
 This repository contains scripts that show examples of how to use the [openSMILE Python library](https://audeering.github.io/opensmile-python/) to generate various feature levels from several feature sets. The scripts can be run with and without Docker.
 
