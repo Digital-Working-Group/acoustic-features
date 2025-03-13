@@ -135,6 +135,7 @@ You can see our examples described above by looking at `extract_features.main()`
 | feat_level | Feature Level to be used. | lld |
 | feat_set | Feature Set to be used. | compare_2016 |
 | sampling_rate | Sampling Rate to resample to before generating features. | None (uses original sampling rate) |
+| channels | The audio channel(s) to be processed. The default is the first channel. | [0] |
 | resample | Set to True if sampling_rate is not None. | NA |
 | out_root | Root folder that the output files are written to. | sample_out/ |
 | csv_out | CSV filepath that the features are written to. | Combines the out_root, feat_set, sampling_rate (if any), original name of the input file into a filepath. |

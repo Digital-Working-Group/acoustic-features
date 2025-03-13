@@ -53,9 +53,9 @@ def extract_osm_features(audio_fp, **kwargs):
     smile = opensmile.Smile(
         feature_set=feature_set,
         feature_level=feat_level,
-        sampling_rate = sampling_rate,
+        sampling_rate=sampling_rate,
         channels=channels,
-        resample = resample
+        resample=resample
     )
 
     features = smile.process_file(audio_fp)
