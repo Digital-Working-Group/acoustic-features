@@ -39,7 +39,7 @@ Run the necessary docker build and run commands provided in the build_docker.sh 
 
 ## Extracting Acoustic Features
 
-After installation, navigate to `extract_features.py`. In `main()`, you may adjust the arguments passed into `extract()` to include:
+After installation, navigate to `extract_features.py`. In `main()`, you may adjust the arguments passed into `extract_osm_features()` to include:
 - A .WAV file for which you wish to generate features
 - feat_level: an optional kwarg that determines which FeatureLevel is used
 - feat_set: an optional kwarg that determines which FeatureSet is used
