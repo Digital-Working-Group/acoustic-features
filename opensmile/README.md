@@ -39,18 +39,17 @@ Run the necessary docker build and run commands provided in the build_docker.sh 
 
 ## Extracting Acoustic Features
 
-After installation, navigate to `extract_features.py`. In `main()`, you may adjust the arguments passed into `extract_osm_features()` to include:
-- A .WAV file for which you wish to generate features
-- feat_level: an optional kwarg that determines which FeatureLevel is used
-- feat_set: an optional kwarg that determines which FeatureSet is used
+See `extract_features.main()` for usage examples. The `osm.extract_osm_features()` function takes in an input audio filepath (`audio_fp`) and a set of keyword arguments. The keyword arguments include:
 
-If no kwargs are defined, the script will default to the LowLevelDescriptors FeatureLevel and ComParE_2016 FeatureSet.
-
-Once adjusted, run:
-```sh
-python extract_features.py
-```
-You will find your output in sample_out/
+| Keyword Argument | Description | Default Value| 
+| - | - | - |
+| feat_level | Feature Level to be used. | lld |
+| feat_set | Feature Set to be used. | compare_2016 |
+| sampling_rate | Sampling Rate to resample to before generating features. | None (uses original sampling rate) |
+| channels | The audio channel(s) to be processed. The default is the first channel. | [0] |
+| resample | Set to True if sampling_rate is not None. | NA |
+| out_root | Root folder that the output files are written to. | sample_out/ |
+| csv_out | CSV filepath that the features are written to. | Combines the out_root, feat_set, sampling_rate (if any), original name of the input file into a filepath. |
 
 ### FeatureLevel Options
 
@@ -96,47 +95,34 @@ For instance, you could run:
 ```
 This would output the features extracted using functionals as the FeatureLevel, eGeMAPSv02 as the FeatureSet and would resample the audio file to 16KHz. Leaving sample_rate unset will use the original audio file's sampling rate instead.
 
-You can see several examples described above by looking at `extract_features.main()`.
+You can see several examples in `extract_features.main()`.
 
 ### Sample Input and Output Files
 ```
+|-- sample_audio
+|   |-- wav
+|   |   |-- compare_2016
+|   |   |   |-- 16KHz
+|   |   |   |   |-- first_ten_Sample_HV_Clip_func_compare_2016_16KHz.csv
+|   |   |   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016_16KHz.csv
+|   |   |   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016_16KHz.csv
+|   |   |   |-- first_ten_Sample_HV_Clip_func_compare_2016.csv
+|   |   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016.csv
+|   |   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016.csv
+|   |   |-- egemapsv02
+|   |   |   |-- 16KHz
+|   |   |   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02_16KHz.csv
+|   |   |   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02_16KHz.csv
+|   |   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02.csv
+|   |   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02.csv
+|   |   |-- gemapsv01b
+|   |   |   |-- 16KHz
+|   |   |   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b_16KHz.csv
+|   |   |   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b_16KHz.csv
+|   |   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b.csv
+|   |   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b.csv
 
-|-- sample_out
-|   |-- compare_2016
-|   |   |-- 16KHz
-|   |   |   |-- first_ten_Sample_HV_Clip_func_compare_2016_16KHz.csv
-|   |   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016_16KHz.csv
-|   |   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016_16KHz.csv
-|   |   |-- first_ten_Sample_HV_Clip_func_compare_2016.csv
-|   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016.csv
-|   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016.csv
-|   |-- egemapsv02
-|   |   |-- 16KHz
-|   |   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02_16KHz.csv
-|   |   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02_16KHz.csv
-|   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02.csv
-|   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02.csv
-|   |-- gemapsv01b
-|   |   |-- 16KHz
-|   |   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b_16KHz.csv
-|   |   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b_16KHz.csv
-|   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b.csv
-|   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b.csv
-|-- sample_wav
-|   |-- first_ten_Sample_HV_Clip.wav
 ```
-
-### Keyword Arguments and Default Values (osm.extract_osm_features()):
-
-| Keyword Argument | Description | Default Value| 
-| - | - | - |
-| feat_level | Feature Level to be used. | lld |
-| feat_set | Feature Set to be used. | compare_2016 |
-| sampling_rate | Sampling Rate to resample to before generating features. | None (uses original sampling rate) |
-| channels | The audio channel(s) to be processed. The default is the first channel. | [0] |
-| resample | Set to True if sampling_rate is not None. | NA |
-| out_root | Root folder that the output files are written to. | sample_out/ |
-| csv_out | CSV filepath that the features are written to. | Combines the out_root, feat_set, sampling_rate (if any), original name of the input file into a filepath. |
 
 ## Acknowledgement
 - [openSMILE](https://github.com/audeering/opensmile): Open-source Speech and Music Interpretation by Large-space Extraction (License audEERING GmbH)
