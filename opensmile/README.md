@@ -85,36 +85,6 @@ The `extract_features.py` script generates the below and repeats it with resampl
 - LLDs using GeMAPSv01b as the on the provided sample WAV file.
 - Functionals using GeMAPSv01b as the on the provided sample WAV file.
 
-### Sample Input and Output Files
-
-* Sample Input: 
-    * sample_wav/
-        * first_ten_Sample_HV_Clip.wav contains a 10-second WAV clip.
-* Sample Output:
-    * sample_out/
-        * compare_2016/
-            * first_ten_Sample_HV_Clip_lld_compare_2016.csv
-            * first_ten_Sample_HV_Clip_func_compare_2016.csv
-            * first_ten_Sample_HV_Clip_lld_de_Compare_2016.csv
-            * 16KHz/
-                * first_ten_Sample_HV_Clip_lld_compare_2016_16KHz.csv
-                * first_ten_Sample_HV_Clip_func_compare_2016_16KHz.csv
-                * first_ten_Sample_HV_Clip_lld_de_compare_2016_16KHz.csv
-        * egemapsv02/
-            * first_ten_Sample_HV_Clip_lld_egemapsv02.csv
-            * first_ten_Sample_HV_Clip_func_egemapsv02.csv
-            * 16KHz/
-                * first_ten_Sample_HV_Clip_lld_egemapsv02_16KHz.csv
-                * first_ten_Sample_HV_Clip_func_egemapsv02_16KHz.csv
-        * gemapsv02b/
-            * first_ten_Sample_HV_Clip_lld_gemapsv01b.csv
-            * first_ten_Sample_HV_Clip_func_gemapsv01b.csv
-            * 16KHz/
-                * first_ten_Sample_HV_Clip_lld_gemapsv01b_16KHz.csv
-                * first_ten_Sample_HV_Clip_func_gemapsv01b_16KHz.csv
-
-Python usage:
-
 ```python
  from osm import extract_osm_features
  extract_osm_features(YOUR_WAV_FILEPATH, OPTIONAL_KWARGS)
@@ -124,9 +94,37 @@ For instance, you could run:
  from osm import extract_osm_features
  extract_osm_features('sample_wav/first_ten_Sample_HV_Clip.wav', feat_level='func', feat_set='eGeMAPSv02', sampling_rate=16000)
 ```
-This would output the features extracted using functionals as the FeatureLevel, eGeMAPSv02 as the FeatureSet and would resample the audio file to 16KHz.
+This would output the features extracted using functionals as the FeatureLevel, eGeMAPSv02 as the FeatureSet and would resample the audio file to 16KHz. Leaving sample_rate unset will use the original audio file's sampling rate instead.
 
-You can see our examples described above by looking at `extract_features.main()`.
+You can see several examples described above by looking at `extract_features.main()`.
+
+### Sample Input and Output Files
+```
+
+|-- sample_out
+|   |-- compare_2016
+|   |   |-- 16KHz
+|   |   |   |-- first_ten_Sample_HV_Clip_func_compare_2016_16KHz.csv
+|   |   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016_16KHz.csv
+|   |   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016_16KHz.csv
+|   |   |-- first_ten_Sample_HV_Clip_func_compare_2016.csv
+|   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016.csv
+|   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016.csv
+|   |-- egemapsv02
+|   |   |-- 16KHz
+|   |   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02_16KHz.csv
+|   |   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02_16KHz.csv
+|   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02.csv
+|   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02.csv
+|   |-- gemapsv01b
+|   |   |-- 16KHz
+|   |   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b_16KHz.csv
+|   |   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b_16KHz.csv
+|   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b.csv
+|   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b.csv
+|-- sample_wav
+|   |-- first_ten_Sample_HV_Clip.wav
+```
 
 ### Keyword Arguments and Default Values (osm.extract_osm_features()):
 

@@ -16,7 +16,7 @@ def extract_osm_features(audio_fp, **kwargs):
     sampling_rate = kwargs.get('sampling_rate')
     channels = kwargs.get('channels', [0])
     resample = sampling_rate is not None
-    out_root = kwargs.get('out_root', 'sample_out')
+    out_root = kwargs.get('out_root')
     feat_level = feat_level.lower()
     feat_set = feat_set.lower()
 
@@ -31,6 +31,8 @@ def extract_osm_features(audio_fp, **kwargs):
 
     csv_out = kwargs.get('csv_out')
     if csv_out is None:
+        if out_root is None:
+            out_root = os.path.dirname(audio_fp)
         basename = os.path.basename(audio_fp).split('.')[0]
         csv_out = f'{out_root}/{feat_set}/{basename}_{feat_level}_{feat_set}.csv'
         if sampling_rate is not None:
