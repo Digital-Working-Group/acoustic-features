@@ -23,3 +23,4 @@ soundfile==0.12.1
 tqdm==4.66.4
 tzdata==2024.1
 zipp==3.19.0
+scikit-learn==1.6.1
