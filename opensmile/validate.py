@@ -92,7 +92,6 @@ def map_files(test_dir, original_dir):
     for file_name in test_files:
         if file_name in original_files:
             matched_files[file_name] = (test_files[file_name], original_files[file_name])
-    print(matched_files)
     return matched_files
 
 def validate_files(sample_input, python_version):
@@ -135,7 +134,6 @@ if __name__ == '__main__':
     sample_input = 'sample_audio/wav/first_ten_Sample_HV_Clip.wav'
     generate_comparison_files(sample_input)
     validate_files(sample_input, 'python3-13-1')
-    ## TODO: uncomment after these files have been created
-    # validate_files(sample_input, 'python3-9-6')
+    validate_files(sample_input, 'python3-9-6')
 
 
