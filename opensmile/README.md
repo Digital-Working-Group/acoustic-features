@@ -14,15 +14,16 @@ python --version
 ```
 Install requirements for Python 3.9.18:
 ```sh
-pip install -r python39_requirements.txt
+pip install -r python3-9-6_requirements.txt
 ```
 Install requirements for Python 3.13.1:
 ```sh
-pip install -r python313_requirements.txt
+pip install -r python3-13-1_requirements.txt
 ```
 If you do not have the supported Python versions installed, you may run the following installation:
 ```sh
 pip install opensmile
+pip install -U scikit-learn
 ```
 Alternatively, you can run the scripts in a Docker environment.
 
@@ -100,30 +101,33 @@ You can see several examples in `extract_features.main()`.
 See further opensmile-python examples [here](https://audeering.github.io/opensmile-python/usage.html).
 
 ### Sample Input and Output Files
+The sample hierarchy below shows the files created in python3-13-1. The files created in python3-9-6 follow the same structue.
 ```
-|-- sample_audio
-|   |-- wav
-|   |   |-- compare_2016
-|   |   |   |-- 16KHz
-|   |   |   |   |-- first_ten_Sample_HV_Clip_func_compare_2016_16KHz.csv
-|   |   |   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016_16KHz.csv
-|   |   |   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016_16KHz.csv
-|   |   |   |-- first_ten_Sample_HV_Clip_func_compare_2016.csv
-|   |   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016.csv
-|   |   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016.csv
-|   |   |-- egemapsv02
-|   |   |   |-- 16KHz
-|   |   |   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02_16KHz.csv
-|   |   |   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02_16KHz.csv
-|   |   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02.csv
-|   |   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02.csv
-|   |   |-- first_ten_Sample_HV_Clip.wav
-|   |   |-- gemapsv01b
-|   |   |   |-- 16KHz
-|   |   |   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b_16KHz.csv
-|   |   |   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b_16KHz.csv
-|   |   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b.csv
-|   |   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b.csv
+opensmile
+   |-- sample_audio
+   |   |-- wav
+   |   |   |-- first_ten_Sample_HV_Clip.wav
+   |   |   |-- python3-13-1
+   |   |   |   |-- compare_2016
+   |   |   |   |   |-- 16KHz
+   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_compare_2016_16KHz.csv
+   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016_16KHz.csv
+   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016_16KHz.csv
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_compare_2016.csv
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016.csv
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016.csv
+   |   |   |   |-- egemapsv02
+   |   |   |   |   |-- 16KHz
+   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02_16KHz.csv
+   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02_16KHz.csv
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02.csv
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02.csv
+   |   |   |   |-- gemapsv01b
+   |   |   |   |   |-- 16KHz
+   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b_16KHz.csv
+   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b_16KHz.csv
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b.csv
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b.csv
 ```
 ## Supported Input Types
 This repository only supports audio files as inputs that are compatible with opensmile-python, which appears to include at least WAV and FLAC files. Further information about openSMILE's supported data input formats can be found [here](https://audeering.github.io/opensmile/about.html#data-input).
@@ -143,7 +147,7 @@ The scripts provded in `validate.py` allows you to check features extracted on y
  validate_files(sample_input, 'python3-9-6')
 ```
 
-This will write your the feature extractions to /test_output and will output a comparison CSV and numpy arrays containing the cosine difference to /test_output/python3-13-1 and /test_output/python3-9-6 respectively.
+This will write your the feature extractions to /test_output and will output a comparison CSV and numpy arrays containing the cosine difference to /test_output/python3-13-1 and /test_output/python3-9-6 respectively. 
 
 ## Acknowledgement
 - [openSMILE](https://github.com/audeering/opensmile): Open-source Speech and Music Interpretation by Large-space Extraction (License audEERING GmbH)
