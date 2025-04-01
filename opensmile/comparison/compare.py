@@ -26,7 +26,7 @@ def verify_dir(root, path):
     os.makedirs(out_dir, exist_ok=True)
     return os.path.join(out_dir, os.path.basename(path))
 
-def get_cosine_similarity(control_df, test_df, np_arr_name):
+def get_cosine_similarity(control_df, test_df, np_arr_name, outdir='npy_arrays'):
     """
     Calculates the cosine similarity between two dataframes with the same columns
     Returns the cosine similarity if the array contains one element, else saves a numpy
@@ -38,7 +38,7 @@ def get_cosine_similarity(control_df, test_df, np_arr_name):
     if similarity_arr.shape == (1,1):
         return similarity_arr[0,0]
     else:
-        outpath = verify_dir('npy_arrays', np_arr_name)
+        outpath = verify_dir(outdir, np_arr_name)
         np.save(outpath, similarity_arr)
         return outpath
 

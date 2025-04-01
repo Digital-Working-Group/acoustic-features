@@ -1,11 +1,12 @@
 """
 validate.py
-validate OSM features generated against sample output;
+validate OSM features generated against original sample output;
 """
 import os
 import csv
 import hashlib
 import pandas as pd
+from comparison.compare import get_cosine_similarity
 from osm import extract_osm_features
 
 def generate_comparison_files(sample_input):
@@ -62,14 +63,7 @@ def hash_file(file_path):
             hasher.update(chunk)
     return hasher.hexdigest()
 
-def compare_files(file1, file2):
-    """
-    Compares the SHA-256 hash of two files
-    Returns True if they match
-    """
-    return hash_file(file1) == hash_file(file2)
-
-def csv_walk(directory_path: str) -> dict:
+def csv_walk(directory_path):
     """
     Recursively fetches all file paths from a given directory and stores them in a dictionary,
     with the file name as the key and the full path as the value.
@@ -81,68 +75,67 @@ def csv_walk(directory_path: str) -> dict:
             if os.path.splitext(file)[1] != '.csv':
                 continue
             file_map[file] = os.path.join(root, file)
-    
     return file_map
 
-def map_files(generated_dir: str, sample_dir: str):
+def map_files(test_dir, original_dir):
     """
-    Matches generated files to sample files based on their names, irrespective of directory structure.
+    Walks each directory and matches test files to original files based on their names.
     Returns a dictionary with file names as keys and a tuple of paths (generated, sample) as values.
     """
     # Get all files in both directories
-    sample_files = csv_walk(sample_dir)
-    generated_files = csv_walk(generated_dir)
-    
+    original_files = csv_walk(original_dir)
+    test_files = csv_walk(test_dir)
     
     # Create a mapping of matching files
     matched_files = {}
     
-    for file_name in generated_files:
-        if file_name in sample_files:
-            matched_files[file_name] = (generated_files[file_name], sample_files[file_name])
+    for file_name in test_files:
+        if file_name in original_files:
+            matched_files[file_name] = (test_files[file_name], original_files[file_name])
     print(matched_files)
     return matched_files
 
-def write_csv():
+def validate_files(sample_input, python_version):
     """
-    write comparison csv
+    Compare original sample output files with generated files using sha256
+    Outputs a csv with comparison details
     """
-
-def validate_files(sample_input):
-    """
-    compare sample output files with generated files using sha256
-    """
+    mapped_dict = map_files('test_output', f'sample_audio/wav/{python_version}')
+    summary = [['sample_input', 'original_output', 'test_output', 'original_output_hash',
+                 'test_output_hash', 'output_hashes_match', 'cosine_similarity']]
     
-    mapped_dict = map_files('test_output', 'sample_audio')
-    summary = [['sample_input', 'original_output', 'test_output', 'original_output_hash', 'test_output_hash', 'output_hashes_match']]
     for file, (original_output, test_output) in mapped_dict.items():
-        comparison = [sample_input, original_output, test_output]
-        comparison.append(hash_file(original_output))
-        comparison.append(hash_file(test_output))
-        if hash_file(original_output) == hash_file(test_output):
-            comparison.append(1)
-        else:
-            comparison.append(0)
-        summary.append(comparison)
+        try:
+            ## Hash comparison
+            original_hash = hash_file(original_output)
+            test_hash = hash_file(test_output)
+            hash_match = int(original_hash == test_hash)
+
+            # Cosine similarity
+            original_df = pd.read_csv(original_output).drop(['file'], axis=1, errors='ignore')
+            test_df = pd.read_csv(test_output).drop(['file'], axis=1, errors='ignore')
+            file_no_ext = file.split('.')[0]
+            cosine_similarity = get_cosine_similarity(original_df, test_df, 
+                                                  f'npy/{file_no_ext}.npy', 
+                                                  outdir=f'test_output/{python_version}')
+        
+            ## Append comparison results
+            summary.append([sample_input, original_output, test_output, 
+                                original_hash, test_hash, hash_match, cosine_similarity])
+        except Exception as e:
+            print(f'Error processing {file}: {e}')
     
-    with open('test_comparison.csv', 'w', newline='') as outfile:
+    outpath = os.path.join('test_output', python_version, f'test_comparison_{python_version}.csv')
+    with open(outpath, 'w', newline='') as outfile:
         writer = csv.writer(outfile)
         writer.writerows(summary)
-
-def validate_pd():
-    mapped_dict = map_files('test_output', 'sample_audio')
-    for file, (original_output, test_output) in mapped_dict.items():
-        original_df = pd.read_csv(original_output)
-        test_df = pd.read_csv(test_output)
-        comparison = original_df.compare(test_df)
-        print(comparison)
-        input()
+    print(f'Validation CSV written to {outpath}.')
 
 if __name__ == '__main__':
     sample_input = 'sample_audio/wav/first_ten_Sample_HV_Clip.wav'
-    # generate_comparison_files(sample_input)
-    validate_files(sample_input)
-    validate_pd()
-
+    generate_comparison_files(sample_input)
+    validate_files(sample_input, 'python3-13-1')
+    ## TODO: uncomment after these files have been created
+    # validate_files(sample_input, 'python3-9-6')
 
 

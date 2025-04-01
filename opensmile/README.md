@@ -132,6 +132,19 @@ The opensmile-python package also supports the processing of audio signals direc
 
 Converting to a supported audio file format and using [process_file](https://audeering.github.io/opensmile-python/api/opensmile.Smile.html#process-signal) or reading the audio file format's audio signal and sampling rate and using [process_signal](https://audeering.github.io/opensmile-python/api/opensmile.Smile.html#process-signal) can both work.
 
+## Validation
+The scripts provded in `validate.py` allows you to check features extracted on your machine using the sample file [first_ten_Sample_HV_Clip.wav](opensmile/sample_audio/wav/first_ten_Sample_HV_Clip.wav) against the sample output provided. The Python version used to run the extract features may affect the comparison due to rounding differences. `validate.py` checks against sample files that were generated using Python 3.13.1 and Python 3.9.6. To perform the validation check, run:
+
+```python
+ from validate import generate_comparison_files, validate_files
+ sample_input = 'sample_audio/wav/first_ten_Sample_HV_Clip.wav'
+ generate_comparison_files(sample_input)
+ validate_files(sample_input, 'python3-13-1')
+ validate_files(sample_input, 'python3-9-6')
+```
+
+This will write your the feature extractions to /test_output and will output a comparison CSV and numpy arrays containing the cosine difference to /test_output/python3-13-1 and /test_output/python3-9-6 respectively.
+
 ## Acknowledgement
 - [openSMILE](https://github.com/audeering/opensmile): Open-source Speech and Music Interpretation by Large-space Extraction (License audEERING GmbH)
 

@@ -5,3 +5,4 @@ __pycache__/
 *.flac
 *.mp3
 .DS_Store
+opensmile/test_output
