@@ -103,6 +103,7 @@ def validate_files(sample_input, python_version):
     summary = [['sample_input', 'original_output', 'test_output', 'original_output_hash',
                  'test_output_hash', 'output_hashes_match', 'cosine_similarity']]
     
+    hash_matches = {'match': 0, 'no match': 0}
     for file, (original_output, test_output) in mapped_dict.items():
         try:
             ## Hash comparison
@@ -110,6 +111,11 @@ def validate_files(sample_input, python_version):
             test_hash = hash_file(test_output)
             hash_match = int(original_hash == test_hash)
 
+            if hash_match == 1:
+                hash_matches['match'] += 1
+            else:
+                hash['no match'] +=1
+                
             # Cosine similarity
             original_df = pd.read_csv(original_output).drop(['file'], axis=1, errors='ignore')
             test_df = pd.read_csv(test_output).drop(['file'], axis=1, errors='ignore')
@@ -128,6 +134,7 @@ def validate_files(sample_input, python_version):
     with open(outpath, 'w', newline='') as outfile:
         writer = csv.writer(outfile)
         writer.writerows(summary)
+    print(f'Summary: {hash_matches}')
     print(f'Validation CSV written to {outpath}.')
 
 if __name__ == '__main__':
