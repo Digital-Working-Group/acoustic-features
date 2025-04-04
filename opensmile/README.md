@@ -148,7 +148,17 @@ Differences in Python and/or library versions used to extract features may affec
  validate_files(sample_input, 'python3-9-6')
 ```
 
-This will write the feature extractions to test_output/ and will output a comparison CSV and numpy arrays containing the cosine difference to /test_output/python3-13-1 and /test_output/python3-9-6 respectively. 
+This will write the feature extractions to test_output/ and will output a comparison CSV to test_output/python3-13-1 and test_output/python3-9-6. The comparison CSV has the following columns:
+
+| Column | Description | Example | 
+| - | - | - |
+| sample_input | Filepath to the source audio file. | sample_audio/wav/first_ten_Sample_HV_Clip.wav |
+| original_output | Filepath to the original output data, pre-generated on the repository. | sample_audio/wav/python3-13-1/compare_2016/first_ten_Sample_HV_Clip_func_compare_2016.csv |
+| test_output | Filepath to the test_output data, generated from the source audio file, but on the user's machine. | test_output/first_ten_Sample_HV_Clip/compare_2016/first_ten_Sample_HV_Clip_func_compare_2016.csv |
+| original_output_hash | sha256 hash generated on original_output. | a85... |
+| test_output_hash | sha256 hash generated on test_output. | a85... |
+| output_hashes_match | Indicates whether original_output_hash and test_output_hash are equal (1) or not (0) | 1 |
+| cosine_similarity | The cosine similarity value if the features are a single row (func), otherwise a filepath to a numpy array (npy) file that has the cosine similarity performed between the matrices.  | 1 or test_output/python3-13-1/npy/first_ten_Sample_HV_Clip_lld_compare_2016.npy | 
 
 ## Acknowledgement
 - [openSMILE](https://github.com/audeering/opensmile): Open-source Speech and Music Interpretation by Large-space Extraction (License audEERING GmbH)
