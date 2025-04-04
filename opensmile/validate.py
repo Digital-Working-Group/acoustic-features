@@ -77,7 +77,7 @@ def csv_walk(directory_path):
             file_map[file] = os.path.join(root, file)
     return file_map
 
-def map_files(test_dir, original_dir):
+def map_files(original_dir, test_dir):
     """
     Walks each directory and matches test files to original files based on their names.
     Returns a dictionary with file names as keys and a tuple of paths (generated, sample) as values.
@@ -91,7 +91,7 @@ def map_files(test_dir, original_dir):
 
     for file_name, test_outpath in test_files.items():
         if file_name in original_files:
-            matched_files[file_name] = (test_outpath, original_files[file_name])
+            matched_files[file_name] = (original_files[file_name], test_outpath)
     return matched_files
 
 def validate_files(sample_input, python_version):
@@ -99,7 +99,7 @@ def validate_files(sample_input, python_version):
     Compare original sample output files with generated files using sha256
     Outputs a csv with comparison details
     """
-    mapped_dict = map_files('test_output', f'sample_audio/wav/{python_version}')
+    mapped_dict = map_files(f'sample_audio/wav/{python_version}', 'test_output')
     summary = [['sample_input', 'original_output', 'test_output', 'original_output_hash',
                  'test_output_hash', 'output_hashes_match', 'cosine_similarity']]
 
