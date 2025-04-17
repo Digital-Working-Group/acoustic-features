@@ -20,7 +20,7 @@ Install requirements for Python 3.13.1:
 ```sh
 pip install -r python3-13-1_requirements.txt
 ```
-If you do not have the supported Python versions installed, you may run the following installation:
+If using a different Python version, you may run the following pip commands:
 ```sh
 pip install opensmile
 pip install -U scikit-learn
@@ -38,23 +38,34 @@ Run the necessary docker build and run commands provided in the build_docker.sh 
 ./run_docker.sh
 ```
 
+The Docker commands included in the .sh scripts are:
+```sh
+docker build -t $docker_name .
+## build the container image under the name 'docker_name' based on the Dockerfile specifications
+docker run -v $(pwd):/scripts -it --rm --name $container_name $docker_name bash
+## run the built container image ('docker_name') under the container name 'container_name'
+## mounts the current working directory $(pwd) as a volume to /scripts within the container
+```
+
+Please see Docker's documentation for more information ([docker build](https://docs.docker.com/build/), [Dockerfile](https://docs.docker.com/build/concepts/dockerfile/), [docker run](https://docs.docker.com/reference/cli/docker/container/run/)).
+
 ## Extracting Acoustic Features
 
 See `extract_features.main()` for usage examples. The `osm.extract_osm_features()` function takes in an input audio filepath (`audio_fp`) and a set of keyword arguments:
 
 | Keyword Argument | Description | Default Value| 
 | - | - | - |
-| feat_level | Feature Level to be used. | lld |
-| feat_set | Feature Set to be used. | compare_2016 |
+| feat_level | FeatureLevel to be used. | lld |
+| feat_set | FeatureSet to be used. | compare_2016 |
 | sampling_rate | Sampling Rate to resample to before generating features. | None (uses original sampling rate) |
 | channels | The audio channel(s) to be processed. The default is the first channel. | [0] |
 | resample | Set to True if sampling_rate is not None. | NA |
-| out_root | Root folder that the output files are written to. | sample_out/ |
-| csv_out | CSV filepath that the features are written to. | Combines the out_root, feat_set, sampling_rate (if any), original name of the input file into a filepath. |
+| out_root | Root folder that the output files are written to. | The parent directory of the input audio filepath (audio_fp). |
+| csv_out | CSV filepath that the features are written to. | Combines the out_root, feat_set, sampling_rate, feat_level, and the input audio's filename into a filepath. |
 
 ### FeatureLevel Options
 
-| FeatureLevel Name          | Argument Mapping |
+| FeatureLevel          | Argument Mapping |
 |----------------------------|------------------|
 | LowLevelDescriptors        | lld              |
 | Functionals                | func             |
@@ -65,7 +76,7 @@ See [openSMILE's FeatureLevel documentation](https://audeering.github.io/opensmi
 
 ### FeatureSet Options
 
-| FeatureSet Name | Argument Mapping |
+| FeatureSet | Argument Mapping |
 |-----------------|------------------|
 | ComParE_2016    | compare_2016     |
 | eGeMAPSv02      | egemapsv02       |
@@ -76,14 +87,12 @@ See [openSMILE's FeatureSet documentation](https://audeering.github.io/opensmile
 
 ## Usage Example
 
-The `extract_features.py` script generates the below and repeats it with resampling to 16KHz prior to feature generation:
-- LLDs using ComParE_2016 as the on the provided sample WAV file.
-- Functionals using ComParE_2016 as the on the provided sample WAV file.
-- LLD_DE's using ComParE_2016 as the on the provided sample WAV file.
-- LLDs using eGeMAPSv02 as the on the provided sample WAV file.
-- Functionals using eGeMAPSv02 as the on the provided sample WAV file.
-- LLDs using GeMAPSv01b as the on the provided sample WAV file.
-- Functionals using GeMAPSv01b as the on the provided sample WAV file.
+The `extract_features.py` script generates the below FeatureLevel and FeatureSet combinations and repeats it with resampling to 16KHz prior to feature generation on the provided sample WAV file.
+| FeatureLevel | FeatureSet
+| - | - |
+| ComParE_2016 | lld, func, and lld_de |
+| eGeMAPSv02 | lld, func |
+| GeMAPSv01b | lld, func |
 
 ```python
  from osm import extract_osm_features
@@ -137,18 +146,32 @@ The opensmile-python package also supports the processing of audio signals direc
 Converting to a supported audio file format and using [process_file](https://audeering.github.io/opensmile-python/api/opensmile.Smile.html#process-signal) or reading the audio file format's audio signal and sampling rate and using [process_signal](https://audeering.github.io/opensmile-python/api/opensmile.Smile.html#process-signal) can both work.
 
 ## Validation
-The scripts provded in `validate.py` allows you to check features extracted on your machine using the sample file [first_ten_Sample_HV_Clip.wav](opensmile/sample_audio/wav/first_ten_Sample_HV_Clip.wav) against the sample output provided.
-Differences in Python and/or library versions used to extract features may affect the comparison due to rounding float differences. `validate.py` checks against sample files that were generated using Python 3.13.1 and Python 3.9.6. To perform the validation check, run:
+The scripts provided in `validate.py` allow you to check features extracted on your machine using the sample file [first_ten_Sample_HV_Clip.wav](sample_audio/wav/first_ten_Sample_HV_Clip.wav) against the provided sample output.
+
+Differences in Python and/or library versions used to extract features may affect the comparison due to differences in float precision. `validate.py` checks against sample files that were generated using Python 3.13.1 and Python 3.9.6.
+
+To perform the validation check, see `run_validate.py`:
 
 ```python
- from validate import generate_comparison_files, validate_files
- sample_input = 'sample_audio/wav/first_ten_Sample_HV_Clip.wav'
- generate_comparison_files(sample_input)
- validate_files(sample_input, 'python3-13-1')
- validate_files(sample_input, 'python3-9-6')
+from validate import generate_comparison_files, validate_files
+
+def main():
+    """
+    main entrypoint for running the acoustic-features validation scripts
+    """
+    sample_filepath = 'sample_audio/wav/first_ten_Sample_HV_Clip.wav'
+    generate_comparison_files(sample_filepath)
+    validate_files(sample_filepath, 'python3-13-1')
+    validate_files(sample_filepath, 'python3-9-6')
+
+if __name__ == '__main__':
+    main()
+
 ```
 
-This will write the feature extractions to test_output/ and will output a comparison CSV to test_output/python3-13-1 and test_output/python3-9-6. The comparison CSV has the following columns:
+This will write the feature extractions to test_output/ and will output a comparison CSV to test_output/python3-13-1 and test_output/python3-9-6 respectively.
+
+The comparison CSV has the following columns:
 
 | Column | Description | Example | 
 | - | - | - |
@@ -157,7 +180,7 @@ This will write the feature extractions to test_output/ and will output a compar
 | test_output | Filepath to the test_output data, generated from the source audio file, but on the user's machine. | test_output/first_ten_Sample_HV_Clip/compare_2016/first_ten_Sample_HV_Clip_func_compare_2016.csv |
 | original_output_hash | sha256 hash generated on original_output. | a85... |
 | test_output_hash | sha256 hash generated on test_output. | a85... |
-| output_hashes_match | Indicates whether original_output_hash and test_output_hash are equal (1) or not (0) | 1 |
+| output_hashes_match | Indicates whether original_output_hash and test_output_hash are equal (1) or not (0). | 1 |
 | cosine_similarity | The cosine similarity value if the features are a single row (func), otherwise a filepath to a numpy array (npy) file that has the cosine similarity performed between the matrices.  | 1 or test_output/python3-13-1/npy/first_ten_Sample_HV_Clip_lld_compare_2016.npy | 
 
 ## Acknowledgement

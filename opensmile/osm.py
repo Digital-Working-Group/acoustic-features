@@ -66,7 +66,7 @@ def extract_osm_features(audio_fp, **kwargs):
     validate_input(feat_level, feat_set)
 
     csv_out = kwargs.get('csv_out')
-    fp_without_ext, audio_ext = os.path.splitext(audio_fp)
+    fp_without_ext, _ = os.path.splitext(audio_fp)
     csv_out = get_csv_out(audio_fp, out_root, fp_without_ext, feat_level, feat_set,
         sampling_rate) if csv_out is None else csv_out
     feature_set = map_feat_set(feat_set)

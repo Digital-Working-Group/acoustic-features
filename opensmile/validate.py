@@ -136,9 +136,3 @@ def validate_files(sample_input, python_version):
         writer.writerows(summary)
     print(f'Summary: {hash_matches}')
     print(f'Validation CSV written to {outpath}.')
-
-if __name__ == '__main__':
-    sample_filepath = 'sample_audio/wav/first_ten_Sample_HV_Clip.wav'
-    generate_comparison_files(sample_filepath)
-    validate_files(sample_filepath, 'python3-13-1')
-    validate_files(sample_filepath, 'python3-9-6')
