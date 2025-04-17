@@ -1,18 +1,16 @@
 # Acoustic Features: openSMILE
 
-This repository contains scripts that show examples of how to use the [openSMILE Python library](https://audeering.github.io/opensmile-python/) to generate acoustic features via various feature levels from several feature sets. The scripts can be run with and without Docker.
+This repository contains scripts that show examples of how to use the [openSMILE Python library](https://audeering.github.io/opensmile-python/) to generate acoustic features via various feature levels from several feature sets. The scripts can be run without [Docker](https://docs.docker.com/engine/install/) or with it.
 
 ## Installation
 
 ### Without Docker
 
-The requirements.txt file can be used to install the necessary libraries without utilizing a Docker environment.
-
 Check your Python version:
 ```sh
 python --version
 ```
-Install requirements for Python 3.9.18:
+Install requirements for Python 3.9.6:
 ```sh
 pip install -r python3-9-6_requirements.txt
 ```
@@ -23,7 +21,7 @@ pip install -r python3-13-1_requirements.txt
 If using a different Python version, you may run the following pip commands:
 ```sh
 pip install opensmile
-pip install -U scikit-learn
+pip install scikit-learn
 ```
 Alternatively, you can run the scripts in a Docker environment.
 
@@ -53,15 +51,15 @@ Please see Docker's documentation for more information ([docker build](https://d
 
 See `extract_features.main()` for usage examples. The `osm.extract_osm_features()` function takes in an input audio filepath (`audio_fp`) and a set of keyword arguments:
 
-| Keyword Argument | Description | Default Value| 
-| - | - | - |
-| feat_level | FeatureLevel to be used. | lld |
-| feat_set | FeatureSet to be used. | compare_2016 |
-| sampling_rate | Sampling Rate to resample to before generating features. | None (uses original sampling rate) |
-| channels | The audio channel(s) to be processed. The default is the first channel. | [0] |
-| resample | Set to True if sampling_rate is not None. | NA |
-| out_root | Root folder that the output files are written to. | The parent directory of the input audio filepath (audio_fp). |
-| csv_out | CSV filepath that the features are written to. | Combines the out_root, feat_set, sampling_rate, feat_level, and the input audio's filename into a filepath. |
+| Keyword Argument | Type | Description | Default Value| 
+| - | - | - | - | 
+| feat_level | str |FeatureLevel to be used. | lld |
+| feat_set | str | FeatureSet to be used. | compare_2016 |
+| sampling_rate | int | Sampling Rate to resample to before generating features. | None (uses original sampling rate) |
+| channels | list\<int\> |The audio channel(s) to be processed. The default is the first channel. | [0] |
+| resample | boolean | Set to True if sampling_rate is not None. | NA |
+| out_root | str | Root folder that the output files are written to. | The parent directory of the input audio filepath (audio_fp). |
+| csv_out | str | CSV filepath that the features are written to. | Combines the out_root, feat_set, sampling_rate, feat_level, and the input audio's filename into a filepath. |
 
 ### FeatureLevel Options
 
