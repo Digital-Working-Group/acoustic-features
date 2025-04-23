@@ -3,6 +3,6 @@ if [ $# -eq 1 ];
 then
     docker_name=$1
 else
-    docker_name="osm-feat-rhel8-python3"
+    docker_name="acoustic-feat-ubuntu-python39"
 fi
 docker build -t $docker_name .
