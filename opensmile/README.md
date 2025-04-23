@@ -108,7 +108,7 @@ You can see several examples in `extract_features.main()`.
 See further opensmile-python examples [here](https://audeering.github.io/opensmile-python/usage.html).
 
 ### Sample Input and Output Files
-The sample hierarchy below shows the files created in python3-13-1. The files created in python3-9-6 follow the same structue.
+The sample hierarchy below shows the files created in python3-13-1 (Windows). The files created in python3-9-6 (Windows) and debian_docker_python3-9-6 (Debian via Docker) follow the same structure.
 ```
 opensmile
    |-- sample_audio
@@ -161,6 +161,7 @@ def main():
     generate_comparison_files(sample_filepath)
     validate_files(sample_filepath, 'python3-13-1')
     validate_files(sample_filepath, 'python3-9-6')
+    validate_files(sample_filepath, 'debian_docker_python3-9-6')
 
 if __name__ == '__main__':
     main()
@@ -180,6 +181,8 @@ The comparison CSV has the following columns:
 | test_output_hash | sha256 hash generated on test_output. | a85... |
 | output_hashes_match | Indicates whether original_output_hash and test_output_hash are equal (1) or not (0). | 1 |
 | cosine_similarity | The cosine similarity value if the features are a single row (func), otherwise a filepath to a numpy array (npy) file that has the cosine similarity performed between the matrices.  | 1 or test_output/python3-13-1/npy/first_ten_Sample_HV_Clip_lld_compare_2016.npy | 
+
+Please see windows_py3-13-1.md, windows_py3-9-6.md, and debian_docker_py3-9-6.md for copies of the expected run_validate.py output for Windows (Python 3.13.1), Windows (Python 3.9.6), and Debian via Docker (Python 3.9.6) respectively.
 
 ## Acknowledgement
 - [openSMILE](https://github.com/audeering/opensmile): Open-source Speech and Music Interpretation by Large-space Extraction (License audEERING GmbH)

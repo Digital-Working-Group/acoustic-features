@@ -6,6 +6,7 @@ import os
 import csv
 import hashlib
 import pandas as pd
+import numpy as np
 from comparison.compare import get_cosine_similarity
 from osm import extract_osm_features
 
@@ -81,7 +82,6 @@ def csv_walk(directory_path):
     with the file name as the key and the full path as the value.
     """
     file_map = {}
-
     for root, _, files in os.walk(directory_path):
         for file in files:
             if os.path.splitext(file)[1] != '.csv':
@@ -106,6 +106,15 @@ def map_files(original_dir, test_dir):
             matched_files[file_name] = (original_files[file_name], test_outpath)
     return matched_files
 
+def yield_csv_data(csv_in):
+    """
+    parameters:
+        csv_in(str): path to a csv file
+    """
+    with open(csv_in, newline='') as infile:
+        for row in csv.DictReader(infile, delimiter=','):
+            yield row
+
 def validate_files(sample_input, python_version):
     """
     Compare original sample output files with generated files using sha256
@@ -115,7 +124,7 @@ def validate_files(sample_input, python_version):
     summary = [['sample_input', 'original_output', 'test_output', 'original_output_hash',
                  'test_output_hash', 'output_hashes_match', 'cosine_similarity']]
 
-    hash_matches = {'match': 0, 'no match': 0}
+    hash_matches = {'hashes_match': 0, 'hashes_do_not_match': 0}
     for file, (original_output, test_output) in mapped_dict.items():
         try:
             ## Hash comparison
@@ -124,9 +133,9 @@ def validate_files(sample_input, python_version):
             hash_match = int(original_hash == test_hash)
 
             if hash_match == 1:
-                hash_matches['match'] += 1
+                hash_matches['hashes_match'] += 1
             else:
-                hash_matches['no match'] +=1
+                hash_matches['hashes_do_not_match'] +=1
 
             # Cosine similarity
             original_df = pd.read_csv(original_output).drop(['file'], axis=1, errors='ignore')
@@ -141,10 +150,34 @@ def validate_files(sample_input, python_version):
                                 original_hash, test_hash, hash_match, cosine_similarity])
         except Exception as error:
             print(f'Error processing {file}: {error}')
+    write_validate_output(summary, hash_matches, python_version)
 
+def write_validate_output(summary, hash_matches, python_version):
+    """
+    write validate output files and prints;
+    """
     outpath = os.path.join('test_output', python_version, f'test_comparison_{python_version}.csv')
+    lines = []
     with open(outpath, 'w', newline='') as outfile:
         writer = csv.writer(outfile)
         writer.writerows(summary)
-    print(f'Summary: {hash_matches}')
-    print(f'Validation CSV written to {outpath}.')
+    for row in yield_csv_data(outpath):
+        for inp_idx in ['sample_input', 'original_output', 'test_output']:
+            lines.append(f'{inp_idx} {row[inp_idx]}')
+        lines.append(f'output_hashes_match: {row["output_hashes_match"]}')
+        cos = row['cosine_similarity']
+        if str(cos).endswith('npy'):
+            cos_val = np.mean(np.abs(np.load(cos)))
+            ## taking absolute value because there seems to be a bug with lld_de, where
+            ## the np_arrs are 100% equivalent but some of the cos sim values are -1
+            lines.append(f'\t{cos}\t\navg_cos_similarity: {cos_val}\n')
+        else:
+            lines.append(f'cos_similarity: {cos}\n')
+    lines.append(f'Summary: {hash_matches}')
+    lines.append(f'Validation CSV written to {outpath}.')
+    lines = "\n".join(lines)
+    txt_out = outpath.replace('.csv', '.txt')
+    with open(txt_out, 'w') as outfile:
+        outfile.write(lines)
+    print(lines)
+    print(f'wrote log to {txt_out}')
