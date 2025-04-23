@@ -1,3 +1,4 @@
+# Windows, Python 3.13.1, run_validate.py
 ```sh
 test_output/first_ten_Sample_HV_Clip/compare_2016/first_ten_Sample_HV_Clip_lld_compare_2016.csv
 test_output/first_ten_Sample_HV_Clip/compare_2016/first_ten_Sample_HV_Clip_func_compare_2016.csv
