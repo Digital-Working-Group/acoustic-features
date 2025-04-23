@@ -12,6 +12,7 @@ def main():
     generate_comparison_files(sample_filepath)
     validate_files(sample_filepath, 'python3-13-1')
     validate_files(sample_filepath, 'python3-9-6')
+    validate_files(sample_filepath, 'debian_docker_python3-9-6')
 
 if __name__ == '__main__':
     main()
