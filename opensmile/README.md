@@ -148,6 +148,8 @@ The scripts provided in `validate.py` allow you to check features extracted on y
 
 Differences in Python and/or library versions used to extract features may affect the comparison due to differences in float precision. `validate.py` checks against sample files that were generated using Python 3.13.1 and Python 3.9.6.
 
+Files have carriage returns removed before the creation of hashes for comparison. The mean of the absolute value of the cosine similarity is reported for multi-dimension arrays. The absolute value is taken to address a potential bug, where two numpy arrays are equal, but some cosine similarity values are around -1.
+
 To perform the validation check, see `run_validate.py`:
 
 ```python
@@ -168,7 +170,7 @@ if __name__ == '__main__':
 
 ```
 
-This will write the feature extractions to test_output/ and will output a comparison CSV to test_output/python3-13-1 and test_output/python3-9-6 respectively.
+This will write the feature extractions to test_output/ and will output a comparison CSV to test_output/python3-13-1, test_output/python3-9-6, and test_output/debian_docker_python3-9-6 respectively.
 
 The comparison CSV has the following columns:
 
@@ -182,7 +184,7 @@ The comparison CSV has the following columns:
 | output_hashes_match | Indicates whether original_output_hash and test_output_hash are equal (1) or not (0). | 1 |
 | cosine_similarity | The cosine similarity value if the features are a single row (func), otherwise a filepath to a numpy array (npy) file that has the cosine similarity performed between the matrices.  | 1 or test_output/python3-13-1/npy/first_ten_Sample_HV_Clip_lld_compare_2016.npy | 
 
-Please see windows_py3-13-1.md, windows_py3-9-6.md, and debian_docker_py3-9-6.md for copies of the expected run_validate.py output for Windows (Python 3.13.1), Windows (Python 3.9.6), and Debian via Docker (Python 3.9.6) respectively.
+Please see `windows_py3-13-1.md`, `windows_py3-9-6.md`, and `debian_docker_py3-9-6.md` for copies of the expected run_validate.py output for Windows (Python 3.13.1), Windows (Python 3.9.6), and Debian via Docker (Python 3.9.6) respectively.
 
 ## Acknowledgement
 - [openSMILE](https://github.com/audeering/opensmile): Open-source Speech and Music Interpretation by Large-space Extraction (License audEERING GmbH)
