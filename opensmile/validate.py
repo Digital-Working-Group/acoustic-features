@@ -53,14 +53,26 @@ def generate_comparison_files(sample_input):
         extract_osm_features(audio_fp,
             feat_level='func', feat_set='GeMAPSv01b', sampling_rate=sampling_rate, out_root=f'test_output/{fname}')
 
+def create_tmp_no_ws(file_path):
+    """
+    create a temporary filepath with no whitespace
+    """
+    with open(file_path, 'r') as infile, open('tmp', 'w') as outfile:
+        for line in infile:
+            line = line.rstrip('\r\n')
+            outfile.write(line)
+
 def hash_file(file_path):
     """
     Returns the SHA-256 hash of a file
     """
+    create_tmp_no_ws(file_path)
+    file_path = 'tmp'
     hasher = hashlib.sha256()
     with open(file_path, 'rb') as infile:
         for chunk in iter(lambda: infile.read(4096), b""):
             hasher.update(chunk)
+    os.remove('tmp')
     return hasher.hexdigest()
 
 def csv_walk(directory_path):
