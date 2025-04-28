@@ -161,16 +161,22 @@ def main():
     """
     sample_filepath = 'sample_audio/wav/first_ten_Sample_HV_Clip.wav'
     generate_comparison_files(sample_filepath)
+    md_out = 'my-env-validate.md'
+    with open(md_out, 'w') as outfile:
+        outfile.write('# My Environment, run_validate.py\n')
+        outfile.write("```sh\n")
     validate_files(sample_filepath, 'python3-13-1')
     validate_files(sample_filepath, 'python3-9-6')
     validate_files(sample_filepath, 'debian_docker_python3-9-6')
+    with open(md_out, 'a') as outfile:
+        outfile.write("\n```")
 
 if __name__ == '__main__':
     main()
 
 ```
 
-This will write the feature extractions to test_output/ and will output a comparison CSV to test_output/python3-13-1, test_output/python3-9-6, and test_output/debian_docker_python3-9-6 respectively.
+This will write the feature extractions to test_output/ and will output a comparison CSV to `test_output/python3-13-1`, `test_output/python3-9-6`, and `test_output/debian_docker_python3-9-6 respectively`. `my-env-validate.md` will contain an overall log of the comparisons between the test_outputs per environment and the user's environment. `test_output/<env_python_version>/test_comparison_<env_python_version>.txt` will contain the log for the comparison for that specific env_python_version.
 
 The comparison CSV has the following columns:
 

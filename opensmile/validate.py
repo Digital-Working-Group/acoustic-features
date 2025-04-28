@@ -144,7 +144,6 @@ def validate_files(sample_input, python_version):
             cosine_similarity = get_cosine_similarity(original_df, test_df,
                                                   f'npy/{file_no_ext}.npy',
                                                   outdir=f'test_output/{python_version}')
-
             ## Append comparison results
             summary.append([sample_input, original_output, test_output,
                                 original_hash, test_hash, hash_match, cosine_similarity])
@@ -157,13 +156,13 @@ def write_validate_output(summary, hash_matches, python_version):
     write validate output files and prints;
     """
     outpath = os.path.join('test_output', python_version, f'test_comparison_{python_version}.csv')
-    lines = []
+    lines = [f'\n>>> START: {python_version}']
     with open(outpath, 'w', newline='') as outfile:
         writer = csv.writer(outfile)
         writer.writerows(summary)
     for row in yield_csv_data(outpath):
         for inp_idx in ['sample_input', 'original_output', 'test_output']:
-            lines.append(f'{inp_idx} {row[inp_idx]}')
+            lines.append(f'{inp_idx}: {row[inp_idx]}')
         lines.append(f'output_hashes_match: {row["output_hashes_match"]}')
         cos = row['cosine_similarity']
         if str(cos).endswith('npy'):
@@ -175,9 +174,13 @@ def write_validate_output(summary, hash_matches, python_version):
             lines.append(f'cos_similarity: {cos}\n')
     lines.append(f'Summary: {hash_matches}')
     lines.append(f'Validation CSV written to {outpath}.')
-    lines = "\n".join(lines)
     txt_out = outpath.replace('.csv', '.txt')
-    with open(txt_out, 'w') as outfile:
-        outfile.write(lines)
+    md_out = 'my-env-validate.md'
+    lines.append(f'Writing text log to {txt_out}')
+    lines.append(f'Writing markdown log to {md_out}')
+    lines.append(f'>>> END: {python_version}\n')
+    lines = "\n".join(lines)
+    with open(txt_out, 'w') as txt_file, open(md_out, 'a') as md_file:
+        txt_file.write(lines)
+        md_file.write(lines)
     print(lines)
-    print(f'wrote log to {txt_out}')
