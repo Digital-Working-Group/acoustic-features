@@ -86,7 +86,7 @@ See [openSMILE's FeatureSet documentation](https://audeering.github.io/opensmile
 ## Usage Example
 
 The `extract_features.py` script generates the below FeatureLevel and FeatureSet combinations and repeats it with resampling to 16KHz prior to feature generation on the provided sample WAV file.
-| FeatureLevel | FeatureSet
+| FeatureSet | FeatureLevel
 | - | - |
 | ComParE_2016 | lld, func, and lld_de |
 | eGeMAPSv02 | lld, func |
