@@ -47,6 +47,10 @@ docker run -v $(pwd):/scripts -it --rm --name $container_name $docker_name bash
 
 Please see Docker's documentation for more information ([docker build](https://docs.docker.com/build/), [Dockerfile](https://docs.docker.com/build/concepts/dockerfile/), [docker run](https://docs.docker.com/reference/cli/docker/container/run/)).
 
+## Jupyter Notebook Examples
+
+Please run [jupyter notebook](https://docs.jupyter.org/en/latest/running.html) and see [acoustic_features_example_usages.ipynb](acoustic_features_example_usages.ipynb) for an interactive set of examples. Also, see the usage example sections below.
+
 ## Extracting Acoustic Features
 
 See `extract_features.main()` for usage examples. The `osm.extract_osm_features()` function takes in an input audio filepath (`audio_fp`) and a set of keyword arguments:
