@@ -2,51 +2,53 @@
 
 This repository contains scripts that show examples of how to use the [openSMILE Python library](https://audeering.github.io/opensmile-python/) to generate acoustic features via various feature levels from several feature sets. The scripts can be run without [Docker](https://docs.docker.com/engine/install/) or with it.
 
-## Installation
+## Installation and Setup
 
-### Without Docker
+### Python Requirements
+```
+opensmile
+   |-- requirements
+   |   |-- py3-13-1
+   |   |   |-- Dockerfile
+   |   |   |-- build_docker.sh
+   |   |   |-- requirements.txt
+   |   |   |-- run_docker.sh
+   |   |   |-- validate_docker.md
+   |   |   |-- validate_windows.md
+   |   |-- py3-9-6
+   |   |   |-- Dockerfile
+   |   |   |-- build_docker.sh
+   |   |   |-- requirements.txt
+   |   |   |-- run_docker.sh
+   |   |   |-- validate_docker.md
+   |   |   |-- validate_windows.md
+```
 
 Check your Python version:
 ```sh
 python --version
 ```
+See [Anaconda](https://www.anaconda.com/download/success) as an option to switch between Python versions. This repository has been tested with Python 3.10.11.
+
 Install requirements for Python 3.9.6:
 ```sh
-pip install -r python3-9-6_requirements.txt
+pip install -r requirements/py3-9-6/requirements.txt 
 ```
+
 Install requirements for Python 3.13.1:
 ```sh
-pip install -r python3-13-1_requirements.txt
-```
-If using a different Python version, you may run the following pip commands:
-```sh
-pip install opensmile
-pip install scikit-learn
-```
-Alternatively, you can run the scripts in a Docker environment.
-
-### With Docker
-
-[Docker](https://docs.docker.com/engine/install/) is required for building and running the docker container. Docker version 24.0.6, build ed223bc was used to develop and test these scripts.
-
-Run the necessary docker build and run commands provided in the `build_docker.sh` and `run_docker.sh` scripts. These .sh scripts were tested on Linux (CentOS 7).
-
-```sh
-./build_docker.sh
-./run_docker.sh
+pip install -r requirements/py3-13-1/requirements.txt 
 ```
 
-The Docker commands included in the .sh scripts are:
-```sh
-docker build -t $docker_name .
-## build the container image under the name 'docker_name' based on the Dockerfile specifications
-docker run -v $(pwd):/scripts -it --rm --name $container_name $docker_name bash
-## run the built container image ('docker_name') under the container name 'container_name'
-## mounts the current working directory $(pwd) as a volume to /scripts within the container
-```
+Note: you may use the pip install command described above even if you are working with a different Python version, but you may need to adjust the requirements.txt file to fit any dependencies specific to that Python version.
+
+### Requirements.txt License Information
+License information for each set of requirements.txt can be found in their respective `pip-licenses.md` file within the requirements/python[version] folders.
+
+### Docker Support
+[Docker](https://docs.docker.com/engine/install/) support can be found via the `Dockerfile` and `build_docker.sh` and `run_docker.sh` files.
 
 Please see Docker's documentation for more information ([docker build](https://docs.docker.com/build/), [Dockerfile](https://docs.docker.com/build/concepts/dockerfile/), [docker run](https://docs.docker.com/reference/cli/docker/container/run/)).
-
 ## Jupyter Notebook Examples
 
 Please run [jupyter notebook](https://docs.jupyter.org/en/latest/running.html) and see [acoustic_features_example_usages.ipynb](acoustic_features_example_usages.ipynb) for an interactive set of examples. Also, see the usage example sections below.
