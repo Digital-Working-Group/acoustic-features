@@ -30,7 +30,7 @@ Check your Python version:
 ```sh
 python --version
 ```
-See [Anaconda](https://www.anaconda.com/download/success) as an option to switch between Python versions. This repository has been tested with Python 3.10.11.
+See [Anaconda](https://www.anaconda.com/download/success) as an option to switch between Python versions.
 
 Install requirements for Python 3.9.6:
 ```sh
