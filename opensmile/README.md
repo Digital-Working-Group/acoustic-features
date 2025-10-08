@@ -11,6 +11,7 @@ opensmile
    |   |-- py3-13-1
    |   |   |-- Dockerfile
    |   |   |-- build_docker.sh
+   |   |   |-- pip-licenses.md
    |   |   |-- requirements.txt
    |   |   |-- run_docker.sh
    |   |   |-- validate_docker.md
@@ -18,6 +19,7 @@ opensmile
    |   |-- py3-9-6
    |   |   |-- Dockerfile
    |   |   |-- build_docker.sh
+   |   |   |-- pip-licenses.md
    |   |   |-- requirements.txt
    |   |   |-- run_docker.sh
    |   |   |-- validate_docker.md
@@ -196,7 +198,7 @@ The comparison CSV has the following columns:
 | output_hashes_match | Indicates whether original_output_hash and test_output_hash are equal (1) or not (0). | 1 |
 | cosine_similarity | The cosine similarity value if the features are a single row (func), otherwise a filepath to a numpy array (npy) file that has the cosine similarity performed between the matrices.  | 1 or test_output/python3-13-1/npy/first_ten_Sample_HV_Clip_lld_compare_2016.npy | 
 
-Please see `windows_py3-13-1.md`, `windows_py3-9-6.md`, and `debian_docker_py3-9-6.md` for copies of the expected run_validate.py output for Windows (Python 3.13.1), Windows (Python 3.9.6), and Debian via Docker (Python 3.9.6) respectively.
+Please see the `validate_<docker/windows>.md` files in the respective `requirements/py<version>/` folders for the expected run_validate.py output.
 
 ## Acknowledgement
 - [openSMILE](https://github.com/audeering/opensmile): Open-source Speech and Music Interpretation by Large-space Extraction (License audEERING GmbH)
