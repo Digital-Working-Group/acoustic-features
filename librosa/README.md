@@ -85,6 +85,38 @@ You can an example of running the feature extraction for all supported features 
 
 Please note that in our example shown in `extract_features.main()`, the features are all sharing the same value for `extraction_kwargs`, which is empty. If you wish to specify specific KWARGS for only certain features, you may wish to adjust main to provide unique `extraction_kwargs` for each feature. 
 
+## Sample Input
+```
+sample_audio
+   |-- first_ten_Sample_HV_Clip.wav
+```
+
+### Sample Output
+```
+librosa
+   |-- output
+   |   |-- first_ten_Sample_HV_Clip_chroma_cens_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_chroma_cqt_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_chroma_stft.npy
+   |   |-- first_ten_Sample_HV_Clip_chroma_stft_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_chroma_vqt_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_fourier_tempogram_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_melspectrogram_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_mfcc_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_poly_features_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_rms_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_spectral_bandwidth_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_spectral_centroid_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_spectral_contrast_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_spectral_flatness_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_spectral_rolloff_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_tempo_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_tempogram_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_tempogram_ratio_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_tonnetz_16KHz.npy
+   |   |-- first_ten_Sample_HV_Clip_zero_crossing_rate_16KHz.npy
+```
+
 ## Citations
 If you use this in your research, please cite:
 ```bibtex
