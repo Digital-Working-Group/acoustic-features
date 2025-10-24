@@ -51,8 +51,8 @@ License information for each set of requirements.txt can be found in their respe
 [Docker](https://docs.docker.com/engine/install/) support can be found via the `Dockerfile` and `build_docker.sh` and `run_docker.sh` files.
 
 Please see Docker's documentation for more information ([docker build](https://docs.docker.com/build/), [Dockerfile](https://docs.docker.com/build/concepts/dockerfile/), [docker run](https://docs.docker.com/reference/cli/docker/container/run/)).
-## Jupyter Notebook Examples
 
+## Jupyter Notebook Examples
 Please run [jupyter notebook](https://docs.jupyter.org/en/latest/running.html) and see [acoustic_features_example_usages.ipynb](acoustic_features_example_usages.ipynb) for an interactive set of examples. Also, see the usage example sections below.
 
 ## Extracting Acoustic Features
@@ -119,7 +119,7 @@ See further opensmile-python examples [here](https://audeering.github.io/opensmi
 The sample hierarchy below shows the files created in python3-13-1 (Windows). The files created in python3-9-6 (Windows) and debian_docker_python3-9-6 (Debian via Docker) follow the same structure.
 ```
 opensmile
-   |-- sample_audio
+   |-- output
    |   |-- wav
    |   |   |-- first_ten_Sample_HV_Clip.wav
    |   |   |-- python3-13-1
