@@ -1,11 +1,31 @@
 # Acoustic Features: Librosa
 
-This repository contains scripts that show examples of how to use the [Librosa Python library](https://github.com/librosa/librosa) to generate acoustic features from the [Spectral features and Rhythm features](https://librosa.org/doc/latest/feature.html). The scripts can be run without [Docker](https://docs.docker.com/engine/install/) or with it.
+This repository contains scripts that show examples of how to use the [Librosa Python library](https://github.com/librosa/librosa) to generate acoustic features including [Spectral features and Rhythm features](https://librosa.org/doc/latest/feature.html). The scripts can be run without [Docker](https://docs.docker.com/engine/install/) or with it.
 
 ## Installation and Setup
 
 ### Python Requirements
-Please run:
+```
+librosa
+   |-- requirements
+   |   |-- py3-13-1
+   |   |   |-- Dockerfile
+   |   |   |-- build_docker.sh
+   |   |   |-- requirements.txt
+   |   |   |-- run_docker.sh
+```
+Check your Python version:
+```sh
+python --version
+```
+See [Anaconda](https://www.anaconda.com/download/success) as an option to switch between Python versions.
+
+Install requirements for Python 3.13.1:
+```sh
+pip install -r requirements/py3-13-1/requirements.txt 
+```
+
+If using a different version of Python, run the following command:
 ```
 pip install librosa
 ```
@@ -26,7 +46,7 @@ audio_fp, feature_name, **kwargs
 
 | Keyword Argument | Type | Description | Default Value| 
 | - | - | - | - | 
-| sampling_rate | int | Sampling Rate to resample to before generating features. | None (uses original sampling rate) |
+| sampling_rate | int | Resample to this rate before generating features. | None (uses original sampling rate) |
 | to_mono | boolean | Set to True to convert the file to mono. | False |
 | out_root | str | Root folder that the output files are written to. | output/ |
 | csv_out | str | CSV filepath that the features are written to. | Combines the out_root, feature_name, sampling_rate, and the input audio's filename into a filepath. |
@@ -38,7 +58,7 @@ Note: Each Librosa Feature includes unique optional KWARGS. Please see the the l
 ### Spectral Features
 
 | Feature Name | Description | Librosa Documentation |
-|----------------------------|------------------|
+|---|---|---|
 | chroma_stft | Compute a chromagram from a waveform or power spectrogram. | [librosa.feature.chroma_stft](https://librosa.org/doc/latest/generated/librosa.feature.chroma_stft.html#librosa.feature.chroma_stft) |
 | chroma_cqt | Constant-Q chromagram. | [librosa.feature.chroma_cqt](https://librosa.org/doc/latest/generated/librosa.feature.chroma_cqt.html#librosa.feature.chroma_cqt) |
 | chroma_cens | Compute the chroma variant “Chroma Energy Normalized” (CENS). | [librosa.feature.chroma_cens](http://librosa.org/doc/latest/generated/librosa.feature.chroma_cens.html#librosa.feature.chroma_cens) |
@@ -59,7 +79,7 @@ Note: Each Librosa Feature includes unique optional KWARGS. Please see the the l
 ### Rhythm Features
 
 | Feature Name | Description | Librosa Documentation |
-|----------------------------|------------------|
+|---|---|---|
 | tempo | Estimate the tempo (beats per minute). | [librosa.feature.tempo](https://librosa.org/doc/latest/generated/librosa.feature.tempo.html#librosa.feature.tempo) |
 | tempogram | Compute the tempogram: local autocorrelation of the onset strength envelope. | [librosa.feature.tempogram](https://librosa.org/doc/latest/generated/librosa.feature.tempogram.html#librosa.feature.tempogram) |
 | fourier_tempogram | Compute the Fourier tempogram: the short-time Fourier transform of the onset strength envelope. | [librosa.feature.fourier_tempogram](http://librosa.org/doc/latest/generated/librosa.feature.fourier_tempogram.html#librosa.feature.fourier_tempogram) |
@@ -92,6 +112,7 @@ sample_audio
 ```
 
 ### Sample Output
+The sample hierarchy below shows the files created in python3-13-1 (Windows). The files created in python3-9-6 (Windows) and debian_docker_python3-9-6 (Debian via Docker) follow the same structure.
 ```
 librosa
    |-- output
