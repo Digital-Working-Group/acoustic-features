@@ -8,7 +8,7 @@ def main():
     """
     main entrypoint for running the acoustic-features validation scripts
     """
-    sample_filepath = 'sample_audio/wav/first_ten_Sample_HV_Clip.wav'
+    sample_filepath = '../sample_audio/first_ten_Sample_HV_Clip.wav'
     generate_comparison_files(sample_filepath)
     md_out = 'my-env-validate.md'
     with open(md_out, 'w') as outfile:

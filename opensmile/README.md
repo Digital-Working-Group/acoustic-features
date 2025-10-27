@@ -117,7 +117,13 @@ If you would like to run feature extractions on the sample audio file using Dock
 
 See further opensmile-python examples [here](https://audeering.github.io/opensmile-python/usage.html).
 
-### Sample Input and Output Files
+### Sample Input
+```
+sample_audio
+   |-- first_ten_Sample_HV_Clip.wav
+```
+
+### Sample Output
 The sample hierarchy below shows the files created in python3-13-1 (Windows). The files created in python3-9-6 (Windows) and debian_docker_python3-9-6 (Debian via Docker) follow the same structure.
 ```
 opensmile
