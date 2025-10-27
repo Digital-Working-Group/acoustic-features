@@ -89,16 +89,19 @@ Note: Each Librosa Feature includes unique optional KWARGS. Please see the the l
 
 The `extract_features.py` script generates each of the spectral and rhythm features described above on the provided sample WAV file.
 
+If you would like to run feature extractions on the sample audio file using Docker, you must move any files into the `acoustic-features/librosa` path to ensure it is within the build context. Adjust the filepath in your call accordingly. 
+
 ```python
- from librosa_feature_extraction import extract_librosa_feature
- extract_librosa_feature(YOUR_WAV_FILEPATH, FEATURE_NAME, OPTIONAL_KWARGS)
+ from librosa_feature_extraction import extract_librosa_features
+ extract_librosa_features(YOUR_WAV_FILEPATH, FEATURE_NAME, OPTIONAL_KWARGS)
 ```
 
 For instance, you could run:
 ```python
- from osm import extract_osm_features
- extract_librosa_feature('../sample_audio/first_ten_Sample_HV_Clip.wav', 'melspectrogram', sampling_rate=16000)
+ from librosa_feature_extraction import extract_librosa_features
+ extract_librosa_features('../sample_audio/first_ten_Sample_HV_Clip.wav', 'melspectrogram', sampling_rate=16000)
 ```
+
 This would output the computed mel-scaled spectrogram for the audio file resampled to 16KHz. Leaving sample_rate unset will use the original audio file's sampling rate instead.
 
 You can an example of running the feature extraction for all supported features in `extract_features.main()`.
