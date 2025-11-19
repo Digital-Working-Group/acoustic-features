@@ -49,8 +49,8 @@ See `extract_features.main()` for usage examples. The `librosa_feature_extractio
 | to_mono | boolean | Set to True to convert the file to mono. | False |
 | out_root | str | Root folder that the output files are written to. | output/ |
 | np_out | str | numpy filepath that the features are written to. | Combines the out_root, feature_name, sampling_rate, and the input audio's filename into a filepath. |
-| load_kwargs | dict | Any additional optional arguments to pass to librosa.load | None |
-| extraction_kwargs | dict | Any additional optional arguments to pass to the librosa feature. | None |
+| load_kwargs | dict | Any additional optional arguments to pass to librosa.load | {} |
+| extraction_kwargs | dict | Any additional optional arguments to pass to the librosa.feature function | {} |
 
 Note: Each Librosa Feature includes unique optional KWARGS. Please see the the links to the Librosa Documentation assoicated with each feature for the full list. If using additional KWARGS, these should be included in extraction_kwargs.
 
