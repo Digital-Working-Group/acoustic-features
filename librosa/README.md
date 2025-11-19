@@ -105,7 +105,33 @@ This would output the computed mel-scaled spectrogram for the audio file resampl
 
 You can an example of running the feature extraction for all supported features in `extract_features.main()`.
 
-Please note that in our example shown in `extract_features.main()`, the features are all sharing the same value for `extraction_kwargs`, which is empty. If you wish to specify specific KWARGS for only certain features, you may wish to adjust main to provide unique `extraction_kwargs` for each feature. 
+Please note that in our example shown in `extract_features.main()`, the features are all sharing the same value for `extraction_kwargs`, which is empty. If you wish to specify specific KWARGS for only certain features, you may wish to adjust main to provide unique `extraction_kwargs` for each feature.
+
+```py
+"""
+extract_features.py
+generate Librosa spectral and rhythm features on WAV files;
+"""
+from librosa_feature_extraction import extract_librosa_features
+
+def main():
+    """
+    main entrypoint generating Spectral and Rhythm features
+    """
+    wav_fp = '../sample_audio/first_ten_Sample_HV_Clip.wav'
+    generate_features = ['chroma_stft', 'chroma_cqt', 'chroma_cens', 'chroma_vqt',
+                         'melspectrogram', 'mfcc', 'rms', 'spectral_centroid', 'spectral_bandwidth',
+                         'spectral_contrast', 'spectral_flatness', 'spectral_rolloff', 
+                         'poly_features', 'tonnetz', 'zero_crossing_rate', 'tempo', 'tempogram',
+                         'fourier_tempogram', 'tempogram_ratio']
+    kwargs = {'sampling_rate': 16000,
+              'to_mono': True}
+    for feature in generate_features:
+        extract_librosa_features(wav_fp, feature, **kwargs)
+
+if __name__ == '__main__':
+    main()
+```
 
 ## Sample Input
 ```
