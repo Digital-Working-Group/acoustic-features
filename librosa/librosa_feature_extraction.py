@@ -1,6 +1,10 @@
-import librosa
-import numpy as np
+"""
+librosa_feature_extraction.py
+implementation of librosa feature extraction functions
+"""
 import os
+import numpy as np
+import librosa
 
 def get_np_out(out_root, fp_without_ext, feature, sampling_rate):
     """
@@ -44,14 +48,12 @@ def extract_features(feature_name, **kwargs):
     Extract Librosa Feature
     Supported features include
     """
-
     if hasattr(librosa.feature, feature_name):
         feature_func = getattr(librosa.feature, feature_name)
         features = feature_func(**kwargs)
         return features
-    else:
-        raise ValueError(f"Unknown feature: {feature_name}")
-    
+    raise ValueError(f"Unknown feature: {feature_name}")
+
 def extract_librosa_features(audio_fp, feature_name, **kwargs):
     """
     Extracts specified Librosa feature on provided audio file
@@ -66,7 +68,7 @@ def extract_librosa_features(audio_fp, feature_name, **kwargs):
     fp_without_ext, _ = os.path.splitext(audio_fp)
     np_out = get_np_out(out_root, fp_without_ext, feature_name,
         sampling_rate) if np_out is None else np_out
-    print(f'Loading audio file...')
+    print(f'Loading audio file ({audio_fp})...')
     waveform, sr = load_audio(audio_fp, sr=sampling_rate, mono=to_mono, **load_kwargs)
     print(f'Extracting {feature_name}...')
     feature_kwargs = build_arguments(feature_name, waveform, sr, **extraction_kwargs)
@@ -77,4 +79,3 @@ def extract_librosa_features(audio_fp, feature_name, **kwargs):
     print('Writing output...')
     np.save(np_out, features)
     print(f'Output written to {np_out}.')
-
