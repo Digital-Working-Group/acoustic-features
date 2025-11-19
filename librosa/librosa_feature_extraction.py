@@ -19,27 +19,21 @@ def get_np_out(out_root, fp_without_ext, feature, sampling_rate):
         np_out = f'{out_root}/{basename}_{feature}_{sr_ext}.npy'
     return np_out
 
-def load_audio(filename, **kwargs):
-    """
-    Loads audio using librosa, returns the waveform and sampling rate
-    """
-    return librosa.load(filename, **kwargs)
-
 def build_arguments(feature_name, waveform, sampling_rate, **kwargs):
     """
     adjusting kwargs to contain the required fields
     """
     ## features requiring intervals
-    if feature_name == 'chroma_vqt' and "intervals" not in kwargs:
-        feature_kwargs = {"y": waveform, "sr": sampling_rate, "intervals": "equal"}
+    if feature_name == 'chroma_vqt' and 'intervals' not in kwargs:
+        feature_kwargs = {'y': waveform, 'sr': sampling_rate, 'intervals': 'equal'}
         feature_kwargs.update(kwargs)
     ## features that don't take the sampling rate
     elif feature_name in ['rms', 'spectral_flatness', 'zero_crossing_rate']:
-        feature_kwargs = {"y": waveform}
+        feature_kwargs = {'y': waveform}
         feature_kwargs.update(kwargs)
     ## all other features
     else:
-        feature_kwargs = {"y": waveform, "sr": sampling_rate}
+        feature_kwargs = {'y': waveform, 'sr': sampling_rate}
         feature_kwargs.update(kwargs)
     return feature_kwargs
 
@@ -69,7 +63,7 @@ def extract_librosa_features(audio_fp, feature_name, **kwargs):
     np_out = get_np_out(out_root, fp_without_ext, feature_name,
         sampling_rate) if np_out is None else np_out
     print(f'Loading audio file ({audio_fp})...')
-    waveform, sr = load_audio(audio_fp, sr=sampling_rate, mono=to_mono, **load_kwargs)
+    waveform, sr = librosa.load(audio_fp, sr=sampling_rate, mono=to_mono, **load_kwargs)
     print(f'Extracting {feature_name}...')
     feature_kwargs = build_arguments(feature_name, waveform, sr, **extraction_kwargs)
     features = extract_features(feature_name, **feature_kwargs)
