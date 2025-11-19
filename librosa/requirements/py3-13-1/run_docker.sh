@@ -13,5 +13,5 @@ then
 else
     docker_name="acoustic-feat-librosa-debian-python3-13-1"
 fi
-dir_up=$(realpath "../../")
+dir_up=$(realpath "../../../")
 docker run -v $dir_up:/scripts -it --rm --name $container_name $docker_name bash

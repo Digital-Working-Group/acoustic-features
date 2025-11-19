@@ -146,7 +146,6 @@ librosa
    |-- output
    |   |-- first_ten_Sample_HV_Clip_chroma_cens_16KHz.npy
    |   |-- first_ten_Sample_HV_Clip_chroma_cqt_16KHz.npy
-   |   |-- first_ten_Sample_HV_Clip_chroma_stft.npy
    |   |-- first_ten_Sample_HV_Clip_chroma_stft_16KHz.npy
    |   |-- first_ten_Sample_HV_Clip_chroma_vqt_16KHz.npy
    |   |-- first_ten_Sample_HV_Clip_fourier_tempogram_16KHz.npy
