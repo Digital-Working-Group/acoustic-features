@@ -52,7 +52,7 @@ See `extract_features.main()` for usage examples. The `librosa_feature_extractio
 | load_kwargs | dict | Any additional optional arguments to pass to librosa.load | {} |
 | extraction_kwargs | dict | Any additional optional arguments to pass to the librosa.feature function | {} |
 
-Note: Each Librosa Feature includes unique optional KWARGS. Please see the the links to the Librosa Documentation assoicated with each feature for the full list. If using additional KWARGS, these should be included in extraction_kwargs.
+Note: Each Librosa Feature includes unique optional KWARGS. Please see the the links to the Librosa Documentation associated with each feature for the full list. To us additional KWARGS, include them in extraction_kwargs.
 
 ### Spectral Features
 
