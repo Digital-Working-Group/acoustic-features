@@ -11,6 +11,7 @@ librosa
    |   |-- py3-13-1
    |   |   |-- Dockerfile
    |   |   |-- build_docker.sh
+   |   |   |-- pip-licenses.md
    |   |   |-- requirements.txt
    |   |   |-- run_docker.sh
 ```
@@ -41,8 +42,6 @@ Please see Docker's documentation for more information ([docker build](https://d
 ## Extracting Acoustic Features
 
 See `extract_features.main()` for usage examples. The `librosa_feature_extraction.extract_librosa_feature()` function takes in an input audio filepath (`audio_fp`), feature name (`feature_name`) and a set of keyword arguments:
-
-audio_fp, feature_name, **kwargs
 
 | Keyword Argument | Type | Description | Default Value| 
 | - | - | - | - | 
@@ -115,7 +114,7 @@ sample_audio
 ```
 
 ### Sample Output
-The sample hierarchy below shows the files created in python3-13-1 (Windows). The files created in python3-9-6 (Windows) and debian_docker_python3-9-6 (Debian via Docker) follow the same structure.
+
 ```
 librosa
    |-- output
