@@ -61,10 +61,10 @@ def extract_librosa_features(audio_fp, feature_name, **kwargs):
     """
     sampling_rate = kwargs.get('sampling_rate', None)
     to_mono = kwargs.get('to_mono', False)
+    out_root = kwargs.get('out_root')
+    np_out = kwargs.get('np_out')
     load_kwargs = kwargs.get('load_kwargs', {})
     extraction_kwargs = kwargs.get('extraction_kwargs', {})
-    np_out = kwargs.get('np_out')
-    out_root = kwargs.get('out_root')
     fp_without_ext, _ = os.path.splitext(audio_fp)
     np_out = get_np_out(out_root, fp_without_ext, feature_name,
         sampling_rate) if np_out is None else np_out

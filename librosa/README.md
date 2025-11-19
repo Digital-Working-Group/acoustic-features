@@ -48,7 +48,7 @@ See `extract_features.main()` for usage examples. The `librosa_feature_extractio
 | sampling_rate | int | Resample to this rate before generating features. | None (uses original sampling rate) |
 | to_mono | boolean | Set to True to convert the file to mono. | False |
 | out_root | str | Root folder that the output files are written to. | output/ |
-| csv_out | str | CSV filepath that the features are written to. | Combines the out_root, feature_name, sampling_rate, and the input audio's filename into a filepath. |
+| np_out | str | numpy filepath that the features are written to. | Combines the out_root, feature_name, sampling_rate, and the input audio's filename into a filepath. |
 | load_kwargs | dict | Any additional optional arguments to pass to librosa.load | None |
 | extraction_kwargs | dict | Any additional optional arguments to pass to the librosa feature. | None |
 
