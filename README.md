@@ -6,4 +6,5 @@ It is a part of a larger [toolkit](https://github.com/FHS-BAP/Voice-Feature-Extr
 ## Overview
 | Name | Description |
 | - |-|
-| **opensmile** | Explore an example of utilizing [openSMILE](https://www.audeering.com/research/opensmile/) to generate acoustic features. openSMILE is an open-source toolkit for audio analysis especially targeted at speech and music applications (e.g. automatic speech recognition, speaker identification, emotion recognition, etc.).
+| **opensmile** | Explore an example of utilizing [openSMILE](https://www.audeering.com/research/opensmile/) to generate acoustic features. openSMILE is an open-source toolkit for audio analysis especially targeted at speech and music applications (e.g. automatic speech recognition, speaker identification, emotion recognition, etc.).|
+| **librosa** | Explore an example of utilizing [Librosa](https://librosa.org/) to generate acoustic features. Librosa is a python package for audio analysis especially targeted at music applications, several of which are applicable to speech analysis (e.g. spectral features and rhythm features).|
