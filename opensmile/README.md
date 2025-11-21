@@ -51,8 +51,8 @@ License information for each set of requirements.txt can be found in their respe
 [Docker](https://docs.docker.com/engine/install/) support can be found via the `Dockerfile` and `build_docker.sh` and `run_docker.sh` files.
 
 Please see Docker's documentation for more information ([docker build](https://docs.docker.com/build/), [Dockerfile](https://docs.docker.com/build/concepts/dockerfile/), [docker run](https://docs.docker.com/reference/cli/docker/container/run/)).
-## Jupyter Notebook Examples
 
+## Jupyter Notebook Examples
 Please run [jupyter notebook](https://docs.jupyter.org/en/latest/running.html) and see [acoustic_features_example_usages.ipynb](acoustic_features_example_usages.ipynb) for an interactive set of examples. Also, see the usage example sections below.
 
 ## Extracting Acoustic Features
@@ -66,7 +66,7 @@ See `extract_features.main()` for usage examples. The `osm.extract_osm_features(
 | sampling_rate | int | Sampling Rate to resample to before generating features. | None (uses original sampling rate) |
 | channels | list\<int\> |The audio channel(s) to be processed. The default is the first channel. | [0] |
 | resample | boolean | Set to True if sampling_rate is not None. | NA |
-| out_root | str | Root folder that the output files are written to. | The parent directory of the input audio filepath (audio_fp). |
+| out_root | str | Root folder that the output files are written to. | output/ |
 | csv_out | str | CSV filepath that the features are written to. | Combines the out_root, feat_set, sampling_rate, feat_level, and the input audio's filename into a filepath. |
 
 ### FeatureLevel Options
@@ -107,42 +107,48 @@ The `extract_features.py` script generates the below FeatureLevel and FeatureSet
 For instance, you could run:
 ```python
  from osm import extract_osm_features
- extract_osm_features('sample_audio/wav/first_ten_Sample_HV_Clip.wav', feat_level='func', feat_set='eGeMAPSv02', sampling_rate=16000)
+ extract_osm_features('../sample_audio/first_ten_Sample_HV_Clip.wav', feat_level='func', feat_set='eGeMAPSv02', sampling_rate=16000)
 ```
 This would output the features extracted using functionals as the FeatureLevel, eGeMAPSv02 as the FeatureSet and would resample the audio file to 16KHz. Leaving sample_rate unset will use the original audio file's sampling rate instead.
 
 You can see several examples in `extract_features.main()`.
 
+If you would like to run feature extractions on the sample audio file using Docker, you must move any files into the `acoustic-features/opensmile` path to ensure it is within the build context. Adjust the filepath in your call accordingly. 
+
 See further opensmile-python examples [here](https://audeering.github.io/opensmile-python/usage.html).
 
-### Sample Input and Output Files
+### Sample Input
+```
+sample_audio
+   |-- first_ten_Sample_HV_Clip.wav
+```
+
+### Sample Output
 The sample hierarchy below shows the files created in python3-13-1 (Windows). The files created in python3-9-6 (Windows) and debian_docker_python3-9-6 (Debian via Docker) follow the same structure.
 ```
 opensmile
-   |-- sample_audio
-   |   |-- wav
-   |   |   |-- first_ten_Sample_HV_Clip.wav
-   |   |   |-- python3-13-1
-   |   |   |   |-- compare_2016
-   |   |   |   |   |-- 16KHz
-   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_compare_2016_16KHz.csv
-   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016_16KHz.csv
-   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016_16KHz.csv
-   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_compare_2016.csv
-   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016.csv
-   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016.csv
-   |   |   |   |-- egemapsv02
-   |   |   |   |   |-- 16KHz
-   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02_16KHz.csv
-   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02_16KHz.csv
-   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02.csv
-   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02.csv
-   |   |   |   |-- gemapsv01b
-   |   |   |   |   |-- 16KHz
-   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b_16KHz.csv
-   |   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b_16KHz.csv
-   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b.csv
-   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b.csv
+   |-- output
+   |   |-- python3-13-1
+   |   |   |-- compare_2016
+   |   |   |   |-- 16KHz
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_compare_2016_16KHz.csv
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016_16KHz.csv
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016_16KHz.csv
+   |   |   |   |-- first_ten_Sample_HV_Clip_func_compare_2016.csv
+   |   |   |   |-- first_ten_Sample_HV_Clip_lld_compare_2016.csv
+   |   |   |   |-- first_ten_Sample_HV_Clip_lld_de_compare_2016.csv
+   |   |   |-- egemapsv02
+   |   |   |   |-- 16KHz
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02_16KHz.csv
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02_16KHz.csv
+   |   |   |   |-- first_ten_Sample_HV_Clip_func_egemapsv02.csv
+   |   |   |   |-- first_ten_Sample_HV_Clip_lld_egemapsv02.csv
+   |   |   |-- gemapsv01b
+   |   |   |   |-- 16KHz
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b_16KHz.csv
+   |   |   |   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b_16KHz.csv
+   |   |   |   |-- first_ten_Sample_HV_Clip_func_gemapsv01b.csv
+   |   |   |   |-- first_ten_Sample_HV_Clip_lld_gemapsv01b.csv
 ```
 ## Supported Input Types
 This repository only supports audio files as inputs that are compatible with opensmile-python, which appears to include at least WAV and FLAC files. Further information about openSMILE's supported data input formats can be found [here](https://audeering.github.io/opensmile/about.html#data-input).
@@ -167,7 +173,7 @@ def main():
     """
     main entrypoint for running the acoustic-features validation scripts
     """
-    sample_filepath = 'sample_audio/wav/first_ten_Sample_HV_Clip.wav'
+    sample_filepath = '../sample_audio/first_ten_Sample_HV_Clip.wav'
     generate_comparison_files(sample_filepath)
     md_out = 'my-env-validate.md'
     with open(md_out, 'w') as outfile:

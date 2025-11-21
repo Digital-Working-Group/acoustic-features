@@ -8,7 +8,7 @@ def main():
     """
     main entrypoint
     """
-    wav_fp = 'sample_audio/wav/first_ten_Sample_HV_Clip.wav'
+    wav_fp = '../sample_audio/first_ten_Sample_HV_Clip.wav'
     audio_filepaths = [wav_fp]
     for audio_fp in audio_filepaths:
         ## FeatureSet: ComParE_2016

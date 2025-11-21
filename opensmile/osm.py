@@ -20,7 +20,7 @@ def get_csv_out(audio_fp, out_root, fp_without_ext, feat_level, feat_set, sampli
     get CSV out if not defined;
     """
     if out_root is None:
-        out_root = os.path.dirname(audio_fp)
+        out_root = 'output'
     basename = os.path.basename(fp_without_ext)
     csv_out = f'{out_root}/{feat_set}/{basename}_{feat_level}_{feat_set}.csv'
     if sampling_rate is not None:
