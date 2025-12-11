@@ -46,7 +46,7 @@ See `extract_features.main()` for usage examples. The `librosa_feature_extractio
 | Keyword Argument | Type | Description | Default Value| 
 | - | - | - | - | 
 | sampling_rate | int | Resample to this rate before generating features. | None (uses original sampling rate) |
-| to_mono | boolean | Set to True to convert the file to mono. | False |
+| to_mono | boolean | Set to True to convert the file to mono. Note that all Rhythm Features require mono-channel input. | False |
 | out_root | str | Root folder that the output files are written to. | output/ |
 | np_out | str | numpy filepath that the features are written to. | Combines the out_root, feature_name, sampling_rate, and the input audio's filename into a filepath. |
 | load_kwargs | dict | Any additional optional arguments to pass to librosa.load | {} |
@@ -76,13 +76,14 @@ Note: Each Librosa Feature includes unique optional KWARGS. Please see the the l
 
 
 ### Rhythm Features
+Note that all rhythm features require mono-channel input. If multi-channel input is provided and `to_mono` is False, then the rhythm features specified will be skipped.
 
 | Feature Name | Description | Librosa Documentation |
 |---|---|---|
-| tempo | Estimate the tempo (beats per minute). | [librosa.feature.tempo](https://librosa.org/doc/latest/generated/librosa.feature.tempo.html#librosa.feature.tempo) |
-| tempogram | Compute the tempogram: local autocorrelation of the onset strength envelope. | [librosa.feature.tempogram](https://librosa.org/doc/latest/generated/librosa.feature.tempogram.html#librosa.feature.tempogram) |
-| fourier_tempogram | Compute the Fourier tempogram: the short-time Fourier transform of the onset strength envelope. | [librosa.feature.fourier_tempogram](http://librosa.org/doc/latest/generated/librosa.feature.fourier_tempogram.html#librosa.feature.fourier_tempogram) |
-| tempogram_ratio | Tempogram ratio features, also known as spectral rhythm patterns. | [librosa.feature.tempogram_ratio](https://librosa.org/doc/latest/generated/librosa.feature.tempogram_ratio.html#librosa.feature.tempogram_ratio) |
+| tempo | Estimate the tempo (beats per minute). Requires mono-channel input. | [librosa.feature.tempo](https://librosa.org/doc/latest/generated/librosa.feature.tempo.html#librosa.feature.tempo) |
+| tempogram | Compute the tempogram: local autocorrelation of the onset strength envelope. Requires mono-channel input.| [librosa.feature.tempogram](https://librosa.org/doc/latest/generated/librosa.feature.tempogram.html#librosa.feature.tempogram) |
+| fourier_tempogram | Compute the Fourier tempogram: the short-time Fourier transform of the onset strength envelope. Requires mono-channel input.| [librosa.feature.fourier_tempogram](http://librosa.org/doc/latest/generated/librosa.feature.fourier_tempogram.html#librosa.feature.fourier_tempogram) |
+| tempogram_ratio | Tempogram ratio features, also known as spectral rhythm patterns. Requires mono-channel input. | [librosa.feature.tempogram_ratio](https://librosa.org/doc/latest/generated/librosa.feature.tempogram_ratio.html#librosa.feature.tempogram_ratio) |
 
 ## Usage Example
 

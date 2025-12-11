@@ -37,6 +37,16 @@ def build_arguments(feature_name, waveform, sampling_rate, **kwargs):
         feature_kwargs.update(kwargs)
     return feature_kwargs
 
+def valid_channel_dim(waveform, feature_name):
+    """
+    Checks that the number of channels is compatible with the feature to extract
+    """
+    requires_mono = ['tempo', 'tempogram', 'tempogram_ratio', 'fourier_tempogram']
+    if feature_name in requires_mono and waveform.ndim != 1:
+        print(f"{feature_name} requires mono-channel input audio.")
+        return False
+    return True
+
 def extract_features(feature_name, **kwargs):
     """
     Extract Librosa Feature
@@ -64,6 +74,9 @@ def extract_librosa_features(audio_fp, feature_name, **kwargs):
         sampling_rate) if np_out is None else np_out
     print(f'Loading audio file ({audio_fp})...')
     waveform, sr = librosa.load(audio_fp, sr=sampling_rate, mono=to_mono, **load_kwargs)
+    if not valid_channel_dim(waveform, feature_name):
+        print(f'Request feature {feature_name} requires mono-channel input audio. Skipping {feature_name}')
+        return
     print(f'Extracting {feature_name}...')
     feature_kwargs = build_arguments(feature_name, waveform, sr, **extraction_kwargs)
     features = extract_features(feature_name, **feature_kwargs)
