@@ -89,7 +89,7 @@ See [openSMILE's FeatureLevel documentation](https://audeering.github.io/opensmi
 | GeMAPSv01b      | gemapsv01b       |
 
 The argument mappings are not case sensitive.
-See [openSMILE's FeatureSet documentation](https://audeering.github.io/opensmile-python/api/opensmile.FeatureSet.html#opensmile.FeatureSet) for further details.
+See [The INTERSPEECH 2016 Computational Paralinguistics Challenge: Deception, Sincerity & Native Language](https://www.isca-archive.org/interspeech_2016/schuller16_interspeech.pdf) for details on ComParE_2016 and [The Geneva Minimalistic Acoustic Parameter Set (GeMAPS) for Voice Research and Affective Computing](https://sail.usc.edu/publications/files/eyben-preprinttaffc-2015.pdf) for details on eGeMAPS and GeMAPS. See [openSMILE's FeatureSet documentation](https://audeering.github.io/opensmile-python/api/opensmile.FeatureSet.html#opensmile.FeatureSet) for further details.
 
 ## Usage Example
 
