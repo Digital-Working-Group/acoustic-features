@@ -1,0 +1,9 @@
+Column, Description
+feature,Full functional feature name as it appears in the output CSV.
+lld_base,The low-level descriptor from which the functional feature is derived.
+lld_category,Acoustic category grouping the LLD by the signal property it captures (Prosodic | Spectral | Cepstral | Sound Quality)
+lld_description,Readable description of the acoustic or perceptual property the LLD measures on a per-frame basis. Definitions from "Association Between Acoustic Features and Neuropsychological Test Performance in the Framingham Heart Study: Observational Study".
+functional,Name of the statistical aggregation applied to the LLD time series to produce one value per segment.
+functional_description,Description of the statistical operation performed over all frames in the segment. Definitions from https://audeering.github.io/opensmile/_components/.
+processing,Signal processing steps applied to the raw LLD before the functional is computed encoded as a short token (sma | de | sma_de | none).
+processing_description,Description of the processing transformation applied to the LLD frames prior to aggregation. Definitions have been adapted from https://audeering.github.io/opensmile/_components/cContourSmoother.html and https://audeering.github.io/opensmile/_components/cDeltaRegression.html
