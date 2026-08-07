@@ -1,0 +1,8 @@
+Column,Description
+feature,Full LLD feature name as it appears in the LLD output CSV (includes processing suffix).
+lld_base,Base name of the low-level descriptor without the processing suffix.
+lld_category,Acoustic category grouping the LLD by the signal property it captures (Frequency | Energy/Amplitude | Spectral).
+lld_description,Readable description of the acoustic or perceptual property the LLD measures on a per-frame basis. Definitions adapted from Eyben et al. (2016) "The Geneva Minimalistic Acoustic Parameter Set (GeMAPS) for Voice Research and Affective Computing" IEEE Transactions on Affective Computing 7(2):190-202 and from the openSMILE documentation at https://audeering.github.io/opensmile/.
+processing,Signal processing applied to the raw LLD encoded as a short token (sma3 | sma3nz).
+processing_description,Description of the processing transformation applied to the LLD frames.
+frame_selection,"Indicates which frames contribute to this LLD (all | voiced). Voiced means only frames where F0 > 0 Hz are included, indicated in openSMILE by the sma3nz suffix."

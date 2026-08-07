@@ -1,0 +1,9 @@
+Column,Description
+feature,Full functional feature name as it appears in the output CSV.
+lld_base,The base low-level descriptor from which the functional feature is derived (V/UV frame-subset suffixes and processing suffixes removed).
+lld_category,Acoustic category grouping the LLD by the signal property it captures (Frequency | Energy/Amplitude | Spectral | Temporal).
+lld_description,Readable description of the acoustic or perceptual property the LLD measures on a per-frame basis. Definitions adapted from Eyben et al. (2016) "The Geneva Minimalistic Acoustic Parameter Set (GeMAPS) for Voice Research and Affective Computing" IEEE Transactions on Affective Computing 7(2):190-202 and from the openSMILE documentation at https://audeering.github.io/opensmile/.
+functional,Name of the statistical aggregation applied to the LLD time series to produce one value per segment; or segment_level for features computed directly at the utterance level.
+functional_description,Description of the statistical operation performed over all frames in the segment. Definitions adapted from the openSMILE documentation at https://audeering.github.io/opensmile/_components/.
+processing,Signal processing applied to the raw LLD before the functional is computed encoded as a short token (sma3 | sma3nz | none).
+processing_description,Description of the processing transformation applied to the LLD frames prior to aggregation.
