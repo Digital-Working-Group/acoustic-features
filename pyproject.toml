@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "acoustic-features"
+version = "0.1.0"
+description = "Librosa and OpenSMILE acoustic features extraction utilities"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "librosa",
+    "numpy",
+    "opensmile",
+    "pandas",
+    "scikit-learn",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pre-commit", "detect-secrets"]
+
+[tool.setuptools]
+packages = [
+    "acoustic_features",
+    "acoustic_features.librosa_features",
+    "acoustic_features.opensmile_features",
+    "acoustic_features.opensmile_features.comparison",
+]
+
+[tool.setuptools.package-dir]
+acoustic_features = "acoustic_features"
+"acoustic_features.librosa_features" = "librosa"
+"acoustic_features.opensmile_features" = "opensmile"
+"acoustic_features.opensmile_features.comparison" = "opensmile/comparison"
